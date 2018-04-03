@@ -1,0 +1,80 @@
+.justify-center {
+    display: flex;
+    justify-content: center;
+}
+
+#submit-btn-login-form {
+    margin-top: 12px;
+}
+
+#login-help {
+    margin-top: 24px;
+}
+
+.forno-image {
+    background-color: grey;
+    height: 150px;
+}
+
+.forno-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+}
+
+.forno-info p {
+    margin: 0;
+}
+
+.forno-name {
+    font-weight: bolder;
+}
+
+.forno-status {
+    font-size: 0.9em;
+}
+
+.forno-graph {
+    height: 300px;
+}
+
+#submit-btn-nova-amostra-form {
+    margin-bottom: 24px;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.dot {
+  fill: white;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.wrap {
+  width: 30%;
+  margin: 0 auto;
+}
+
+.card-login {
+  margin-top: 40%;
+}
+
+.blank {
+  height: 50px;
+}
+
+.blank-small {
+  height: 15px;
+}

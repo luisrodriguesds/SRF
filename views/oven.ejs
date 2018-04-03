@@ -1,0 +1,448 @@
+<!-- Made by Eduardo Melo de Carvalho Braga, Developer at LRX - Laboratório de Raios X da UFC -->
+
+<html>
+	<head>
+
+		<meta charset='UTF-8'>
+
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.deep_orange-deep_purple.min.css" />
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,500,400italic,700,700italic' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="/stylesheets/oven.css">
+
+		<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="http://malsup.github.com/jquery.form.js"></script> 
+
+		<script src="canvasjs/dist/canvasjs.js"></script>
+		<script src="javascripts/chartViwer.js" type="text/javascript"></script>
+		<script src="socket.io/socket.io.js" charset="utf-8"></script>
+
+		<script type="text/javascript">
+			function formatarData(data){
+				return data.getDate() + '/' + (data.getMonth() + 1) + '/' + data.getFullYear() + ' - ' + data.getHours() + ':' + data.getMinutes() + ':' + 	data.getSeconds();
+			}
+		</script>
+
+		<title>Fornos LRX</title>
+
+	</head>
+
+	<body>
+			<!-- script for real time update for all user that are listenning the page -->
+		<script type="text/javascript">
+			var socket = io.connect('http://200.17.35.8:3000');
+			console.log(socket.connected);
+			var trigger_use = <%- using %>==true ? "down" : "up";
+			var using_oven = false;
+
+			var _user_name = <%- JSON.stringify(user_name) %>;
+
+			var session_user_name = <%- JSON.stringify(session_user_name) %>;
+			var _user_is_admin = <%- is_admin %>;
+			var _user_is_wait = <%- is_wait %>;
+
+			var id = <%- dataset._id %>;
+
+			var trigger_energy = <%- JSON.stringify(energy) %>;
+			var trigger_motor = <%- JSON.stringify(motor) %>;
+
+			var locked = false;
+
+			function lock(user, session) {
+				//locks functions if user its different
+				if(user != false && user != session) {
+					$('#switch-1').prop('disabled', true);
+					$('#switch-2').prop('disabled', true);
+					locked = true;
+				}
+			}
+
+			function unlock() {
+				$('#switch-1').prop('disabled', false);
+				$('#switch-2').prop('disabled', false);
+
+				locked = false;
+			}
+
+
+			$("document").ready(function() {
+				if(trigger_energy == "on") {
+					$("#switch-1")[0].checked = true;
+					$("#switch-1-state").text("Ligado");
+				}
+
+				if(trigger_energy == "off") {
+					$("#switch-1")[0].checked = false;
+					$("#switch-1-state").text("Desligado");
+				}
+
+				if(trigger_motor == "on") {
+					$("#switch-2")[0].checked = true;
+					$("#switch-2-state").text("Ligado");
+				}
+
+				if(trigger_motor == "off") {
+					$("#switch-2")[0].checked = false;
+					$("#switch-2-state").text("Desligado");
+				}
+
+				lock(_user_name, session_user_name);
+			});
+
+
+			socket.on('connect', function() {
+				socket.emit('join_room', 'general');
+			});
+
+		    socket.on('message', function(content) {
+				console.log(content);
+		    });
+
+		    socket.on('energyChange', function(payload) {
+				$("document").ready( function() {
+					if(payload == 'on') {
+						if(!($("#switch-1").is(':checked'))) {
+							$('#switch-1').click();
+						}
+
+						$('#switch-2').prop('disabled', false);
+						$("#switch-1-state").text("Ligado");
+					}
+					else if(payload == 'off') {
+						if($("#switch-1").is(':checked')) {
+							$('#switch-1').click();
+						}
+
+						if($("#switch-2").is(':checked')) {
+							$('#switch-2').click();
+						}
+
+						$('#switch-2').prop('disabled', true);
+						$("#switch-1-state").text("Desligado");
+					}
+
+					console.log("Energy " + payload);
+				});
+		    });
+
+		    socket.on('motorChange', function(payload) {
+				$("document").ready( function() {
+					if(payload == 'on') {
+						if(!($("#switch-2").is(':checked'))) {
+							$('#switch-2').click();
+						}
+
+						$("#switch-2-state").text("Ligado");
+					}
+					else if(payload == 'off') {
+						if($("#switch-2").is(':checked')) {
+							$('#switch-2').click();
+						}
+
+						$("#switch-2-state").text("Desligado");
+					}
+
+					console.log("Motor " + payload);
+				});
+		    });
+
+		    socket.on('update_1', function(data) {
+				update(data);
+		    });
+
+		    socket.on("update_last_data_1", function(date){
+		    	$("#last_data_received").text(date);
+		    });
+
+		    socket.on('furnace_1_begin', function(data) {
+		    	$("document").ready( function() {
+					$("#furnace-1-functions").slideDown();
+
+					_user_name = data.user_name;
+
+					$("#chip-1 > .mdl-chip__contact").text(data.user_name[0]);
+					$("#chip-1 > .mdl-chip__text").text(data.user_name);
+					$("#quem-usa").text(data.user_name);
+					delete data.user_name;
+
+					init(document);
+
+					$("#chip-1").show();
+
+					lock(_user_name, session_user_name);
+					$("#furnace-1-action-button").text("Finalizar Análise");
+					$("#analysis_begin_time").text(formatarData(new Date()));
+					$("#oven_available").text("Forno indisponível");
+					$("#oven_ball").css("background-color", "#E30000");
+				});
+		    });
+
+		    socket.on('furnace_1_end', function(payload) {
+		    	$("document").ready( function() {
+		    		id = payload._id;
+
+		    		console.log("id: " + id);
+
+					$("#furnace-1-functions").slideUp();
+
+					_user_name = false;
+
+					$("#chip-1").hide();
+					$("#chip-1 > .mdl-chip__contact").text("P");
+					$("#chip-1 > .mdl-chip__text").text("Placeholder");
+
+					unlock();
+					$("#furnace-1-action-button").text("Iniciar Análise");
+					$("#analysis_begin_time").text("Não há análise em andamento");
+					$("#oven_available").text("Forno disponível");
+					$("#oven_ball").css("background-color", "#29E314");
+
+					$("#quem-usa").text("Forno livre");
+				});
+		    });
+
+		</script>
+
+		<!-- setup header nav bar -->
+		<div class="mdl-layout mdl-js-layout">
+	  		<header class="mdl-layout__header">
+	    		<div class="mdl-layout__header-row">
+	      			<!-- Title -->
+	      			<span class="mdl-layout-title">Fornos LRX</span>
+	      			<!-- Add spacer, to align navigation to the right -->
+      				<div class="mdl-layout-spacer"></div>
+      				<button id="demo-menu-lower-right"
+					        class="mdl-button mdl-js-button mdl-button--icon">
+						<i class="material-icons">more_vert</i>
+					</button>
+
+					<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+					    for="demo-menu-lower-right">
+						<li disabled class="mdl-menu__item mdl-menu__item--full-bleed-divider">Opção</li>
+
+						<form action="/oven/log" method="post">
+							<li class="mdl-menu__item"><input class="mdl-menu__item" id="get_log" type="submit" value="Mostrar histórico de análises"></li>
+						</form>
+
+						<form action="/auth/exit" method="POST" target="_self">
+							<li class="mdl-menu__item"> <button class="mdl-menu__item" type="submit"/> Sair </li>
+						</form>	
+					</ul>
+	    		</div>
+	  		</header>
+		</div>
+
+		<!-- setup site content with mdl grid --> 
+
+			<!-- layer-0 is the basic container for our divs that show the main content of page.
+				It will controll the page layout
+			 -->
+		<div class="layer-0 mdl-grid">
+				<!-- main content goes inside main cell, that is positioned on the center of page.
+					Css is used to give to it a margin and element allignment at center.
+					In the stylesheet scearch .main-cell attribute.
+				-->
+			<div class="main-cell mdl-cell mdl-cell--3-offset-desktop mdl-cell--6-col-desktop mdl-cell--0-offset-phone mdl-cell--12-col-phone">
+					<!-- This div aggregates all ovens cards -->
+				<div id="oven-div">
+						<!-- This card represents the oven. It contains the basic informations -->
+					<div class="card-wide mdl-card mdl-shadow--16dp">
+						<div class="mdl-card__title">
+							<h2 class="mdl-card__title-text"> Forno 1 </h2>
+							
+							<!-- Using Chip -->
+							<!--<span class="mdl-chip mdl-chip--contact" id="chip-1">
+							    <span class="mdl-chip__contact mdl-color--accent mdl-color-text--white">P</span>
+							    <span class="mdl-chip__text">Placeholder</span>
+							</span>-->
+						</div>
+
+						<!--<div class="mdl-card__supporting-text">
+							<p>Olá, seja bem vindo ao Sistema de Monitoramento de Fornos LRX!
+							<br>Com o FORNO 1, você pode realizar as seguintes atividades:
+							<ul>
+								<li>Controle e monitoramento remoto de fornos.</li>
+								<li>Nanossínteses, superparamagnetismo, técnicas termomecânicas e químicas.</li>
+								<li>Telemetria e registro integral de dados físicos e químicos.</li>
+							</ul>
+							<br><br><br><br>
+						</div><br>-->
+
+						<div class="mdl-card__actions mdl-card--border">
+							<p style="display: inline-block"><span style="font-weight:bold">Usuário:</span> <span id="quem-usa"></span></p>
+
+							<a id="furnace-1-action-button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+								Iniciar Análise
+							</a>
+							<div id="oven_ball"></div>
+							<span id="oven_available">Forno disponível</span>
+								<!-- we use jquery to execute the action of the button. Here
+									it's important to run jquery commands only after document 
+									is loaded. Otherwise $() function won't work and get the id
+								-->
+							<script>
+								$("document").ready( function() {
+									if(trigger_use == "up") {
+										$("#furnace-1-functions").hide();
+
+										$("#chip-1").hide();
+										$("#chip-1 > .mdl-chip__contact").text("P");
+										$("#chip-1 > .mdl-chip__text").text("Placeholder");
+
+										using_oven = false;
+
+										unlock();
+										_user_name = false;
+										$("#furnace-1-action-button").text("Iniciar Análise");
+										$("#oven_available").text("Forno disponível");
+										$("#oven_ball").css("background-color", "#29E314");
+
+										$("#quem-usa").text("Forno livre");
+									} 
+									if(trigger_use == "down") {
+										$("#furnace-1-functions").show();
+
+										//$("#chip-1 > .mdl-chip__contact").text(_user_name[0]);
+										$("#chip-1 > .mdl-chip__text").text(_user_name);
+										$("#chip-1").show();
+
+										using_oven = true;
+										init(document);
+
+										lock(_user_name, session_user_name);
+										$("#furnace-1-action-button").text("Finalizar Análise");
+										$("#oven_available").text("Forno indisponível");
+										$("#oven_ball").css("background-color", "#30000");
+										$("#quem-usa").text(_user_name);
+									}
+
+									trigger_use = "none";
+
+									$("#furnace-1-action-button").click(function() {
+										if(!locked || _user_is_admin) { // !locked || !_user_is_wait || _user_is_admin
+											$("#furnace-1-functions").slideToggle(1000, function() {
+												if(using_oven == false) {
+													/*if(_user_is_wait){
+														socket.emit('free_furnace_1', {_id: id + 1});
+													}*/
+													socket.emit('using_furnace_1', {_id: id, user_name: session_user_name} );
+													socket.emit('energy', 'on');
+													socket.emit('motor', 'on');
+												}
+												else {
+													socket.emit('free_furnace_1', {_id: id + 1});
+													socket.emit('energy', 'off');
+													socket.emit('motor', 'off');
+													/*if(!_user_is_wait){
+														socket.emit('using_furnace_1', {_id: id, user_name: "Forno Livre"} );
+													}*/
+												}
+
+												console.log("using oven is " + using_oven);
+
+												using_oven = !using_oven;
+											});
+
+											//console.log("The button has been clicked not locked");
+										}
+										else {
+											//show toast
+											//console.log("The button has been clicked");
+										}
+									});
+								});
+							</script>
+						</div>
+
+					</div>
+
+		
+					<div id="furnace-1-functions" class="layer-1 mdl-grid">
+						<!-- here we put all cards that are functions of the furnace -->
+
+							<!-- Energy Card -->
+						<div class="card-toggler mdl-card mdl-shadow--6dp mdl-cell--6-col-desktop mdl-cell--6-col-phone" style="margin-right: 3.5%;">
+							<div class="mdl-card__media">
+								<img src="images/plug.jpg" width = "600%" height="180%" style="margin-left: -200%; margin-top: -30%">
+							</div>
+
+							<div class="content">
+								<div class="mdl-card__title">
+									<h3 style="margin-bottom: 40%;"> Energia </h3>
+								</div>
+
+								<div class="mdl-card__actions mdl-card--border" >
+									<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+									  <input type="checkbox" id="switch-1" class="mdl-switch__input" checked>
+									  <span class="mdl-switch__label" id="switch-1-state"> Ligado </span>
+									</label>
+
+									<script type="text/javascript">
+										$("document").ready( function() {
+											$("#switch-1").click(function() { // prevent other connected users from messing with the energy
+												if(!locked){
+													if($("#switch-1").is(":checked")) {
+														socket.emit('energy', 'on');
+													}
+													else {
+														socket.emit('energy', 'off');
+													}
+												}
+											});
+										});
+									</script>
+
+								</div>
+							</div>
+						</div>
+
+							<!-- Motor Card -->
+						<div class="card-toggler mdl-card mdl-shadow--6dp mdl-cell--6-col-desktop mdl-cell--6-col-phone">
+							<div class="mdl-card__media">
+								<img src="images/motor.jpg" width = "500%" height="200%" style="margin-left: -150%; margin-top: -50%">
+							</div>
+
+							<div class="content">
+								<div class="mdl-card__title">
+									<h3 style="margin-bottom: 40%;"> Motor </h3>
+								</div>
+
+								<div class="mdl-card__actions mdl-card--border" >
+									<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
+									  <input type="checkbox" id="switch-2" class="mdl-switch__input" checked>
+									  <span class="mdl-switch__label" id="switch-2-state"> Ligado </span>
+									</label>
+
+									<script>
+										$("document").ready( function() {
+											$("#switch-2").click(function() { // prevent other connected users from messing with the motor
+												if(!locked){
+													if($("#switch-2").is(":checked")) {
+														socket.emit('motor', 'on');
+													}
+													else {
+														socket.emit('motor', 'off');
+													}
+												}
+											});
+										});
+									</script>
+
+								</div>
+							</div>
+						</div>
+
+							<!-- The temperature chart runs in this DIV. All changes are made in chartViwer.js script.
+								Div name is a target for the script for draw the char.
+							 -->
+						<div id="chartContainer1" class="chart-card mdl-card mdl-shadow--2dp mdl-cell--12-col-desktop mdl-cell--12-col-phone"></div>
+					</div>
+					<p>Último dado recebido: <span id="last_data_received"><%- locals.last_data_time %></span></p>
+					<p>Início da análise: <span id="analysis_begin_time"><%- locals.dataset.begin_time %></span></p>
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>

@@ -1,0 +1,51 @@
+<html>
+	<head>
+		<title>Fornos LRX - Histórico de Análises</title>
+
+		<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<!--<div id="chartContainer" style="height: 300px; width: 100%;"></div>-->
+
+		<% for(let i=0; i<log.length; i++){ %>
+			<h1>Análise <%- i %></h1>
+			<h3 style="color:grey;">Autor: <%- log[i].author %></h3>
+			<h3 style="color:grey;">Início: <%- log[i].begin_time %></h3>
+			<form action="/oven/download" method="post">
+				<input name="analise" type="text" value=<%- i %> hidden></input><br>
+				<button type="submit">Download</button>
+			</form>
+		<% } %>
+	</body>
+
+	<script type="text/javascript">
+		/*var data = <%= log %>;
+		console.log(<%= log %>)
+		var data = [];
+		var x = [<%= log.x %>];
+		var y = [<%= log.y %>];
+		console.log(x);
+		for(let i=0; i<<%= log.length %>; i++){
+			data.push({x:x[i], y:y[i]});
+		}
+
+		window.onload = function () {
+		var chart = new CanvasJS.Chart("chartContainer", {
+				title:{
+					text: "Análise do <%= log.author %>"              
+				},
+				data: [{
+					type: "line",
+					dataPoints: data
+				}],
+				subtitles:[
+					{
+						text: "Inicio: <%= log.begin_time %>"
+					}
+				]
+			});
+			chart.render();
+		}*/
+	</script>
+</html>

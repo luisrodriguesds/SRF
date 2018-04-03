@@ -1,0 +1,121 @@
+body {
+	background-color: #EDE7F6;
+}
+
+.mdl-layout {
+	background: url("../images/lrx_background.png") center;
+	background-repeat: repeat;
+	filter: hue-rotate(190deg);
+}
+.mdl-layout__content {
+	filter: hue-rotate(-190deg);
+}
+
+.mdl-layout__header {
+	filter: hue-rotate(-190deg);
+}
+
+.layer-0 > .main-cell {
+	margin-top: 5%;
+	text-align: center;
+	justify-content: center;
+}
+
+.card-wide > .mdl-card__title {
+	background: url("../images/furnace.jpg") center/ cover;
+	background-repeat: no-repeat;
+	background-position: 0px 25%; 
+}
+
+.mdl-chip {
+	position: absolute;
+	right: 2%;
+	top: 1%;
+}
+
+.mdl-card__title-text {
+	font-size: 28px;
+}
+
+
+.card-wide.mdl-card {
+	width: 100%;
+	height: 486px;
+}
+.card-wide > .mdl-card__title {
+	color: #fff;
+	height: 85%;
+}
+.card-wide > .mdl-card__supporting-text {
+	text-align: left;
+}
+
+
+
+.card-toggler.mdl-card {
+	margin-top: 2%;
+	width: 48%;
+	flex-direction: column;
+}
+
+.card-toggler > .mdl-card__media {
+	left: 0;
+    position: absolute;
+	width: 40%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.card-toggler > .content {
+	right: 0;
+    position: absolute;
+    width: 60%;
+	height: 100%;
+}
+
+.card-toggler > .content.mdl-card__title {
+	height: 30%;
+}
+
+.card-toggler > .content.mdl-card__actions {
+	height: 30%;
+}
+
+
+.chart-card.mdl-cell--12-col-desktop {
+	height: 600px; 
+	width: 400%; 
+	margin-top: 2%;
+}
+
+@media screen and (max-width: 1080px) {
+	.mdl-layout__header {
+	    display: -webkit-flex; display: -ms-flexbox; display: flex;
+	    height: 10%;
+	}
+	.mdl-layout-title {
+		font-size: 0px;
+	}
+
+	.layer-0 > .main-cell {
+		margin-top: 15%;
+	}
+}
+
+#oven_available {
+	display:inline-block;
+	font-weight: bold;
+}
+
+#oven_ball {
+	width:40px;
+	height:30px;
+	-webkit-border-radius: 99px;
+	-moz-border-radius: 99px;
+	border-radius: 99px;
+	display:inline-block;
+}
+
+#furnace-1-action-button {
+	display:inline-block;
+}

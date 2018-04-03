@@ -1,0 +1,22 @@
+.signup-bg {
+	--color-rotation: 			90deg;
+}
+
+.login-bg {
+	--color-rotation: 			190deg;
+}
+
+.mdl-layout {
+	background: url("../images/lrx_background.png") center;
+	background-repeat: repeat;
+	align-items: center;
+  	justify-content: center;
+
+  	filter: hue-rotate(var(--color-rotation));
+}
+.mdl-layout__content {
+	padding: 24px;
+	flex: none;
+
+	filter: hue-rotate(calc(var(--color-rotation) * -1));
+}

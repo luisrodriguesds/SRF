@@ -1,0 +1,32 @@
+extends layout
+
+block content
+	div#login-page.container
+		div#allign.center-align.wrap
+			div#card-settings.card-panel.card-login.deep-orange.accent-3.z-depth-3.card-content.white-text
+				h3.center-align= title
+				div#input-fields.container
+
+					if page === 'add'
+						form(method='post', action='/main/add')
+							div.form-group
+								label(for='email') Email
+								input.form-control(type='text', id='email', placeholder='exemplo@provedor.ext', name='email')
+							div.form-group
+								label(for='password') Senha
+								input.form-control(type='password', id='password', placeholder='xxxxxxxxx', name='password')
+							div.blank
+							button.btn.waves-effect.grey.darken-4(type='submit') Cadastrar
+					else
+						form(method='post', action='/main/login')
+							div.form-group
+								label(for='email') Email
+								input.form-control(type='text', id='email', placeholder='exemplo@provedor.ext', name='email')
+							div.form-group
+								label(for='password') Senha
+								input.form-control(type='password', id='password', placeholder='xxxxxxxxx', name='password')
+							div.blank
+							button.btn.waves-effect.grey.darken-4(type='submit') Log In
+			div.blank
+			form(method='post', action='/main/new')
+				button.btn-flat.orange-text(type='submit') Novo Usuário

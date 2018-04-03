@@ -1,0 +1,193 @@
+extends layout
+
+block content
+  script(src="javascripts/esp.js")
+  script(src="javascripts/d3_test.js")
+  script(src="canvasjs/dist/canvasjs.js")
+  script(src="javascripts/chartViwer.js" type="text/javascript")
+  script(src="https://d3js.org/d3.v4.min.js")
+  script(src="socket.io/socket.io.js")
+
+  script(type='text/javascript').
+    var socket = io.connect('http://52.26.91.174:3000');
+
+    socket.on('message', function(content) {
+      console.log(content);
+    });
+
+    socket.on('update', function(data) {
+      var data_set = JSON.stringify(data);
+      //console.log("Update Call " + data_set);
+      update(data);
+    });
+
+  div.demo-layout
+    div.row
+      div.sidebar.col.s3
+        div.demo-drawer.mdl-layout__drawer.mdl-color--blue-grey-900.mdl-color-text--blue-grey-50
+          header.demo-drawer-header
+            img.demo-avatar(src="images/user.jpg")
+            div.demo-avatar-dropdown
+              span hello@example.com
+                i.material-icons.right more_vert
+
+          div.collection.demo-navigation.mdl-navigation.mdl-color--blue-grey-800
+            a.collection-item.mdl-navigation__link(href="")
+              i.mdl-color-text--blue-grey-400.material-icons(role="presentation") account_box
+              span Perfil
+
+            a.collection-item.mdl-navigation__link(href="")
+              i.mdl-color-text--blue-grey-400.material-icons(role="presentation") announcement
+              span Notificações
+
+            div.mdl-layout-spacer
+              a.collection-item.mdl-navigation__link(href="")
+                span.visuallyhidden Ajuda
+                i.mdl-color-text--blue-grey-400.material-icons(role="presentation") help_outline
+
+      div.main-content.col.s9.offset-s3
+        div.demo-layout.mdl-layout.mdl-js-layout.mdl-layout--fixed-drawer.mdl-layout--fixed-header
+          nav
+            div.nav-wrapper
+              a.brand-logo(href="#") Fornos LRX
+              ul#nav-mobile.right.hide-on-med-and-down
+                li
+                  div.switch
+                    label Forno 1: Liberado
+                      input(type="checkbox")
+                      span.lever
+                    label Utilizar
+
+          main.row
+            div.col.s12
+              div.card.demo-charts.mdl-color--white.mdl-shadow--2dp.mdl-cell.mdl-cell--12-col.mdl-grid
+                div.card-content
+                  div.row
+
+                    - for (var i=0; i<4; i++)
+                      div.col.s3
+                        svg.demo-chart.mdl-cell.mdl-cell--4-col.mdl-cell--3-col-desktop(fill="currentColor" width="200px" height="200px" viewBox="-1 -1 2 2")
+                          use(xlink:href="#piechart")
+                          text(x="0" y="0" font-family="Roboto" font-size="0.5" fill="#888" text-anchor="middle" dy="0.2")= percent
+                            tspan(font-size="0.2" dy="-0.07") %
+
+              div.row(style="margin-bottom: 0px;")
+                div.col.s8
+                  div.card
+                    div.card-content
+                      div#chartContainer1(style="height: 300px; width:100%;")
+                      script(type='text/javascript').
+                        init(document);
+                        var data_set = !{JSON.stringify(dataset)}
+                        update(data_set);
+
+                  div.card
+                    div.card-content
+                      svg#area
+                      script.
+                        executeD3AreaChart(document, d3);
+                      
+                div.col.s4
+                  div.row
+                    div.demo-cards
+                      div.card
+                        div.card-content
+                          div.demo-updates.mdl-card.mdl-shadow--2dp.mdl-cell.mdl-cell--4-col.mdl-cell--4-col-tablet.mdl-cell--12-col-desktop
+
+                            div.mdl-card__supporting-text.mdl-color-text--grey-600
+                              h2 Forno
+
+                        div.card-action.mdl-card__actions.mdl-card--border
+                          div.switch
+                              label Desligado
+                                input#oven-switch(type="checkbox" onclick="onClickHandler(document, 'oven')")
+                                span.lever
+                              label Ligado
+
+                div.col.s4
+                  div.row
+                    div.demo-cards
+                      div.card
+                        div.card-content
+                          div.demo-updates.mdl-card.mdl-shadow--2dp.mdl-cell.mdl-cell--4-col.mdl-cell--4-col-tablet.mdl-cell--12-col-desktop
+
+                            div.mdl-card__supporting-text.mdl-color-text--grey-600
+                              h2 Motor
+
+                        div.card-action.mdl-card__actions.mdl-card--border
+                          div.switch
+                              label Desligado
+                                input#motor-switch(type="checkbox" onclick="onClickHandler(document, 'motor')")
+                                span.lever
+                              label Ligado
+
+                  div.row
+                    div.demo-cards
+                      div.demo-options.mdl-card.mdl-color--deep-purple-500.mdl-shadow--2dp.mdl-cell.mdl-cell--4-col.mdl-cell--3-col-tablet.mdl-cell--12-col-desktop
+                        div.card.mdl-card__supporting-text.mdl-color-text--blue-grey-50
+                          div.card-content
+                            h3.card-title View options
+                            form
+                            ul
+                              li
+                                label.mdl-checkbox.mdl-js-checkbox.mdl-js-ripple-effect(for="chkbox1")
+                                  input#chkbox1.mdl-checkbox__input(type="checkbox" checked="checked")
+                                  span.mdl-checkbox__label Click per object
+                              li
+                                label.mdl-checkbox.mdl-js-checkbox.mdl-js-ripple-effect(for="chkbox2")
+                                  input#chkbox2.mdl-checkbox__input(type="checkbox" checked="checked")
+                                  span.mdl-checkbox__label Views per object
+                              li
+                                label.mdl-checkbox.mdl-js-checkbox.mdl-js-ripple-effect(for="chkbox3")
+                                  input#chkbox3.mdl-checkbox__input(type="checkbox" checked="checked")
+                                  span.mdl-checkbox__label Objects selected
+                              li
+                                label.mdl-checkbox.mdl-js-checkbox.mdl-js-ripple-effect(for="chkbox4")
+                                  input#chkbox4.mdl-checkbox__input(type="checkbox" checked="checked")
+                                  span.mdl-checkbox__label Objects viewed
+
+                          div.card-action.mdl-card__actions.mdl-card--border
+                            a.mdl-button.mdl-js-button.mdl-js-ripple-effect.mdl-color-text--blue-grey-50(href="#") Change location
+                            div.mdl-layout-spacer
+                            i.material-icons location_on
+
+  svg(xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" style="position: fixed; left: -1000px; height: -1000px;")
+    defs
+      mask#piemask(maskContentUnits="objectBoundingBox")
+        circle(cx=0 cy=0 r=1 fill="white")
+        circle(cx=0 cy=0 r=0.8 fill="black")
+      g#piechart
+        circle(cx=0 cy=0 r=1)
+        path(d="M 0 -1 A 1 1 0 1 1 " + x_pos + " " + y_pos + " L 0 0" stroke="none" fill="rgba(255, 255, 255, 0.75)")
+
+  svg(version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 250" style="position: fixed; left: -1000px; height: -1000px;")
+    defs
+      g#chart
+        g#Gridlines
+          line(fill="#888888" stroke="#888888" stroke-miterlimit="10" x1="0" y1="27.3" x2="468.3" y2="27.3")
+          line(fill="#888888" stroke="#888888" stroke-miterlimit="10" x1="0" y1="66.7" x2="468.3" y2="66.7")
+          line(fill="#888888" stroke="#888888" stroke-miterlimit="10" x1="0" y1="105.3" x2="468.3" y2="105.3")
+          line(fill="#888888" stroke="#888888" stroke-miterlimit="10" x1="0" y1="144.7" x2="468.3" y2="144.7")
+          line(fill="#888888" stroke="#888888" stroke-miterlimit="10" x1="0" y1="184.3" x2="468.3" y2="184.3")
+
+        g#Numbers
+          text(transform="matrix(1 0 0 1 485 29.3333)" fill="#888888" font-family="'Roboto'" font-size="9") 500
+          text(transform="matrix(1 0 0 1 485 69)" fill="#888888" font-family="'Roboto'" font-size="9") 400
+          text(transform="matrix(1 0 0 1 485 109.3333)" fill="#888888" font-family="'Roboto'" font-size="9") 300
+          text(transform="matrix(1 0 0 1 485 149)" fill="#888888" font-family="'Roboto'" font-size="9") 200
+          text(transform="matrix(1 0 0 1 485 188.3333)" fill="#888888" font-family="'Roboto'" font-size="9") 100
+          text(transform="matrix(1 0 0 1 0 249.0003)" fill="#888888" font-family="'Roboto'" font-size="9") 1
+          text(transform="matrix(1 0 0 1 78 249.0003)" fill="#888888" font-family="'Roboto'" font-size="9") 2
+          text(transform="matrix(1 0 0 1 154.6667 249.0003)" fill="#888888" font-family="'Roboto'" font-size="9") 3
+          text(transform="matrix(1 0 0 1 232.1667 249.0003)" fill="#888888" font-family="'Roboto'" font-size="9") 4
+          text(transform="matrix(1 0 0 1 309 249.0003)" fill="#888888" font-family="'Roboto'" font-size="9") 5
+          text(transform="matrix(1 0 0 1 386.6667 249.0003)" fill="#888888" font-family="'Roboto'" font-size="9") 6
+          text(transform="matrix(1 0 0 1 464.3333 249.0003)" fill="#888888" font-family="'Roboto'" font-size="9") 7
+
+        g#Layer_5
+          polygon(opacity="0.36" stroke-miterlimit="10" points="0,223.3 48,138.5 154.7,169 211,88.5 294.5,80.5 380,165.2 437,75.5 469.5,223.3")
+
+        g#Layer_4
+          polygon(stroke-miterlimit="10" points="469.3,222.7 1,222.7 48.7,166.7 155.7,188.3 212,132.7 296.7,128 380.7,184.3 436.7,125")
+
+  a#view-source.btn(href="#" target="_blank") View Source		
