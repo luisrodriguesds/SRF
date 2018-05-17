@@ -32,7 +32,6 @@
 			<!-- script for real time update for all user that are listenning the page -->
 		<script type="text/javascript">
 			var socket = io.connect('http://200.17.35.8:3000');
-			console.log(socket.connected);
 			var trigger_use = <%- using %>==true ? "down" : "up";
 			var using_oven = false;
 
@@ -55,6 +54,12 @@
 					$('#switch-1').prop('disabled', true);
 					$('#switch-2').prop('disabled', true);
 					locked = true;
+				}
+
+				if(user == "Forno Livre"){
+					$('#switch-1').prop('disabled', false);
+					$('#switch-2').prop('disabled', false);
+					locked = false;
 				}
 			}
 
@@ -322,29 +327,37 @@
 									$("#furnace-1-action-button").click(function() {
 										if(!locked || _user_is_admin) { // !locked || !_user_is_wait || _user_is_admin
 											$("#furnace-1-functions").slideToggle(1000, function() {
+												console.log("using oven: " + using_oven);
+
 												if(using_oven == false) {
 													/*if(_user_is_wait){
 														socket.emit('free_furnace_1', {_id: id + 1});
 													}*/
-													socket.emit('using_furnace_1', {_id: id, user_name: session_user_name} );
-													socket.emit('energy', 'on');
-													socket.emit('motor', 'on');
+
+													socket.emit('free_furnace_1', {_id: id + 1});
+
+													setTimeout(function(){
+														socket.emit('using_furnace_1', {_id: id, user_name: session_user_name} );
+														socket.emit('energy', 'on');
+														socket.emit('motor', 'on');
+													}, 5000);
 												}
 												else {
 													socket.emit('free_furnace_1', {_id: id + 1});
 													socket.emit('energy', 'off');
 													socket.emit('motor', 'off');
+
+													setTimeout(function(){
+														socket.emit('using_furnace_1', {_id: id, user_name: "Forno Livre"});
+													}, 5000);
+
 													/*if(!_user_is_wait){
 														socket.emit('using_furnace_1', {_id: id, user_name: "Forno Livre"} );
 													}*/
 												}
 
-												console.log("using oven is " + using_oven);
-
 												using_oven = !using_oven;
 											});
-
-											//console.log("The button has been clicked not locked");
 										}
 										else {
 											//show toast

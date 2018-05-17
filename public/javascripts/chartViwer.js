@@ -13,7 +13,7 @@ function init(document) {
 
 	var chart_config = {
 			title :{
-				text: "Tempo(s) x Temperatura(°C)"
+				text: "Temperatura(°C) x Tempo(s)"
 			},
 			animationEnabled: false,      
 			axisX: {
@@ -47,8 +47,6 @@ function init(document) {
 				y: json_dataset.y[samples.length]
 			});
 
-			console.log(samples.length);
-
 		  	if(samples[samples.length - 1].x > dynamic_interval * interval_treshold) {
 		    	dynamic_interval *= interval_treshold/2; 
 		    	chart.options.axisX.interval = dynamic_interval;
@@ -62,7 +60,9 @@ function init(document) {
 
 	var realTimeUpdate = function(dataset) {
 		//console.log("	Dataset in RealTime: " + dataset);
-		setInterval(function(){updateChart(dataset)}, updateInterval);
+		setInterval(function(){
+			updateChart(dataset)
+		}, updateInterval);
 	}
 
 	var ShowChart = function() {

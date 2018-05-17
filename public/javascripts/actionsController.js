@@ -4,12 +4,14 @@ exports.useAndFreeAction = function(collection, action, callback) {
       console.log("data defined");
       var _using = !data.using;
       var _name = _using ? action.user_name : false;
+      var _user_is_wait = action.user_is_wait;
 
       collection.update( {type: "furnace_use", number: action.number}, 
       {
         $set: {
           using: _using,
-          user_name: _name
+          user_name: _name,
+          user_is_wait: _user_is_wait
         }
       }, function(err, r) {
         callback(err, r);

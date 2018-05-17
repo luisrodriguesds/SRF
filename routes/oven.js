@@ -19,7 +19,7 @@ var actions_controller = require('../public/javascripts/actionsController.js');
 var fs = require("fs");
 
 router.post('/realTime', function(req, res, next) {
-    //console.log(req.body);
+    console.log(req.body);
 	
     try{
         var oven_content = JSON.parse(req.body);

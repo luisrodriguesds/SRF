@@ -30,15 +30,25 @@ exports.init = function(server, request, callback) {
 			var user_name = payload.user_name;
 			data.user_name = user_name;
 
+			var user_is_wait;
+			var using;
+			if(user_name == "Forno Livre"){
+				user_is_wait = true;
+			} else {
+				user_is_wait = false;
+				using = true;
+			}
+
 			server.sockets.in('general').emit('furnace_1_begin', data);
 			// 'http://192.168.1.3/useOn?_id=' + data._id
-			request.post('http://10.2.192.27/useOn?_id=' + data._id + '&_user_name=' + data.user_name); //
+			request.post('http://10.2.192.110/useOn?_id=' + data._id + '&_user_name=' + data.user_name);
 
 			request.post('http://0.0.0.0:3000/oven/action_use').form({
 				"type": "furnace_use",
 				"number": 1,
 				"using": true,
-				"user_name": user_name
+				"user_name": user_name,
+				"user_is_wait": user_is_wait
 			});
 
 			request.post('http://0.0.0.0:3000/oven/action_energy_motor').form({
@@ -52,7 +62,7 @@ exports.init = function(server, request, callback) {
 		client.on('free_furnace_1', function(payload) {
 			console.log("Free Furnace!!");
 			server.sockets.in('general').emit('furnace_1_end', payload);
-			request.post('http://10.2.192.27/useOff');
+			request.post('http://10.2.192.110/useOff');
 
 			request.post('http://0.0.0.0:3000/oven/action_use').form({
 				"type": "furnace_use",
@@ -71,7 +81,7 @@ exports.init = function(server, request, callback) {
 		client.on('energy', function(payload) {
 			if(payload == 'on') {
 				request.post(
-				    'http://10.2.192.27/energyOn',
+				    'http://10.2.192.110/energyOn',
 				    { payload: { energy: 'on' } },
 				    function (error, response, body) {
 				        if (response.statusCode == 200 || response.statusCode == 302) {
@@ -98,7 +108,7 @@ exports.init = function(server, request, callback) {
 			}
 			else if (payload == 'off') {
 			  	request.post(
-				    'http://10.2.192.27/energyOff',
+				    'http://10.2.192.110/energyOff',
 				    { payload: { energy: 'off' } },
 				    function (error, response, body) {
 				        if (response.statusCode == 200 || response.statusCode == 302) {
@@ -127,7 +137,7 @@ exports.init = function(server, request, callback) {
 		client.on('motor', function(payload) {
 			if(payload == 'on') {
 				request.post(
-				    'http://10.2.192.27/motorOn',
+				    'http://10.2.192.110/motorOn',
 				    { payload: { motor: 'on' } },
 				    function (error, response, body) {
 				    	if(error){
@@ -157,7 +167,7 @@ exports.init = function(server, request, callback) {
 			}
 			else if (payload == 'off') {
 			  	request.post(
-				    'http://10.2.192.27/motorOff',
+				    'http://10.2.192.110/motorOff',
 				    { payload: { motor: 'off' } },
 				    function (error, response, body) {
 				        if (response.statusCode == 200 || response.statusCode == 302) {

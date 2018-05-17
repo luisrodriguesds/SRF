@@ -1,0 +1,7 @@
+
+> fornos-lrx@0.0.0 list_daemons /home/administrador/Projetos/SRF
+> forever list
+
+[32minfo[39m:    Forever processes running
+[90mdata[39m:    [37m   [39m [37muid[39m  [90mcommand[39m             [90mscript[39m  [37mforever[39m [37mpid[39m   [37mid[39m [35mlogfile[39m                               [33muptime[39m  
+[90mdata[39m:    [0] YD_r [90m/usr/local/bin/node[39m [90mbin/www[39m 31051   31057    [35m/home/administrador/.forever/YD_r.log[39m [31mSTOPPED[39m 
