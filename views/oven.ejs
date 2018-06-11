@@ -93,6 +93,8 @@
 				}
 
 				lock(_user_name, session_user_name);
+
+				init(document);
 			});
 
 
@@ -101,7 +103,6 @@
 			});
 
 		    socket.on('message', function(content) {
-				console.log(content);
 		    });
 
 		    socket.on('energyChange', function(payload) {
@@ -126,8 +127,6 @@
 						$('#switch-2').prop('disabled', true);
 						$("#switch-1-state").text("Desligado");
 					}
-
-					console.log("Energy " + payload);
 				});
 		    });
 
@@ -147,8 +146,6 @@
 
 						$("#switch-2-state").text("Desligado");
 					}
-
-					console.log("Motor " + payload);
 				});
 		    });
 
@@ -162,8 +159,6 @@
 
 		    socket.on('furnace_1_begin', function(data) {
 		    	$("document").ready( function() {
-					$("#furnace-1-functions").slideDown();
-
 					_user_name = data.user_name;
 
 					$("#chip-1 > .mdl-chip__contact").text(data.user_name[0]);
@@ -186,10 +181,6 @@
 		    socket.on('furnace_1_end', function(payload) {
 		    	$("document").ready( function() {
 		    		id = payload._id;
-
-		    		console.log("id: " + id);
-
-					$("#furnace-1-functions").slideUp();
 
 					_user_name = false;
 
@@ -277,6 +268,7 @@
 						<div class="mdl-card__actions mdl-card--border">
 							<p style="display: inline-block"><span style="font-weight:bold">Usuário:</span> <span id="quem-usa"></span></p>
 
+							<!-- trocar esse botão por gravar análise -->
 							<a id="furnace-1-action-button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
 								Iniciar Análise
 							</a>
@@ -289,7 +281,8 @@
 							<script>
 								$("document").ready( function() {
 									if(trigger_use == "up") {
-										$("#furnace-1-functions").hide();
+										// não esconder
+										//$("#furnace-1-functions").hide();
 
 										$("#chip-1").hide();
 										$("#chip-1 > .mdl-chip__contact").text("P");
@@ -306,7 +299,7 @@
 										$("#quem-usa").text("Forno livre");
 									} 
 									if(trigger_use == "down") {
-										$("#furnace-1-functions").show();
+										//$("#furnace-1-functions").show();
 
 										//$("#chip-1 > .mdl-chip__contact").text(_user_name[0]);
 										$("#chip-1 > .mdl-chip__text").text(_user_name);
@@ -325,43 +318,19 @@
 									trigger_use = "none";
 
 									$("#furnace-1-action-button").click(function() {
-										if(!locked || _user_is_admin) { // !locked || !_user_is_wait || _user_is_admin
-											$("#furnace-1-functions").slideToggle(1000, function() {
-												console.log("using oven: " + using_oven);
+										if(!locked || _user_is_admin) {
+											if(using_oven == false) {
+												socket.emit('using_furnace_1', {_id: id, user_name: session_user_name});
+												socket.emit('energy', 'on');
+												socket.emit('motor', 'on');
+											}
+											else {
+												socket.emit('free_furnace_1', {_id: id + 1});
+												socket.emit('energy', 'off');
+												socket.emit('motor', 'off');
+											}
 
-												if(using_oven == false) {
-													/*if(_user_is_wait){
-														socket.emit('free_furnace_1', {_id: id + 1});
-													}*/
-
-													socket.emit('free_furnace_1', {_id: id + 1});
-
-													setTimeout(function(){
-														socket.emit('using_furnace_1', {_id: id, user_name: session_user_name} );
-														socket.emit('energy', 'on');
-														socket.emit('motor', 'on');
-													}, 5000);
-												}
-												else {
-													socket.emit('free_furnace_1', {_id: id + 1});
-													socket.emit('energy', 'off');
-													socket.emit('motor', 'off');
-
-													setTimeout(function(){
-														socket.emit('using_furnace_1', {_id: id, user_name: "Forno Livre"});
-													}, 5000);
-
-													/*if(!_user_is_wait){
-														socket.emit('using_furnace_1', {_id: id, user_name: "Forno Livre"} );
-													}*/
-												}
-
-												using_oven = !using_oven;
-											});
-										}
-										else {
-											//show toast
-											//console.log("The button has been clicked");
+											using_oven = !using_oven;
 										}
 									});
 								});

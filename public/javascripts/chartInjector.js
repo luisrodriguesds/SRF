@@ -23,42 +23,54 @@ exports.injectData = function(_actions, _log, data, callback) {
           	}, function(err, r) {
             	callback();
 
-                if(data.author == "Forno Livre"){
+                if(data.author == "Forno Livre" || !data.author || data.author == ""){
                     if(log.length >= 9000){
                         _log.remove({_id: log._id}, function(err, obj){
                             if(err){
                                 throw err;
                             }
-
-                            console.log("excluído");
                         });
                     }
                 }
           	});
       	} else {
-    		var date = new Date();
-    		var dateString = formatarData(date);
+            _actions.findOne({type: "furnace_use", number: 1}).then((res) => {
+                console.log("res: " + res.user_name);
+            
+                if(res.using){
+                    data.author = res.user_name;
+                } else {
+                    data.author = "";
+                }
 
-    		data.length = 1;
-    		delete data.amt;
+                var date = new Date();
+                var dateString = formatarData(date);
 
-    		data.begin_time = dateString;
-    
-    		_log.insert(data, function(err, r) {
-                callback();
-    		});
+                data.length = 1;
+                delete data.amt;
+
+                data.begin_time = dateString;
+        
+                _log.insert(data, function(err, r) {
+                    callback();
+                });
+            });
       	}
 	});
 
 	var date = new Date();
 	var dateString = formatarData(date);
-	_actions.update({type:"furnace_use"},
-  	            {$set:{last_data_time:dateString}},
-      	        function(err, r){
-          	        if(err){
-              		    throw err;
-                  	}
-            	}
+	_actions.update(
+        {type:"furnace_use"},
+  	    {$set:{
+                last_data_time:dateString
+            }
+        },
+      	function(err, r){
+  	        if(err){
+      		    throw err;
+              	}
+    	}
 	);
 }
 

@@ -19,6 +19,8 @@ var actions_controller = require('../public/javascripts/actionsController.js');
 var fs = require("fs");
 
 router.post('/realTime', function(req, res, next) {
+	// checar se alguém está usando e gravar os dados de acordo
+
     console.log(req.body);
 	
     try{
@@ -80,9 +82,6 @@ router.post('/action_energy_motor', function(req, res, next) {
     });
 });
 
-
-
-
 //this route allways show the maxID experiment.
 router.get('/', function(req, res, next) {
     req.session_controller.checkAuth(req, function(user) {
@@ -127,8 +126,6 @@ router.get('/', function(req, res, next) {
     actions.findOne({type: "furnace_use", number: 1}).then((log) => {
         console.log("searching furnace use");
 
-        //console.log("result: " + log.user_name + " is " + log.using);
-
         if(log != undefined && log != null) {
             parameters.using = log.using;
             parameters.user_name = log.user_name;
@@ -136,7 +133,7 @@ router.get('/', function(req, res, next) {
             console.log("found furnace use");
 
             if(!parameters.using){
-                parameters.dataset.begin_time = "Não há análise em andamento.";
+                parameters.dataset.begin_time = "Não há gravamento em andamento.";
             }
         }
         else {
@@ -166,13 +163,9 @@ router.get('/', function(req, res, next) {
     actions.findOne({type: "furnace_energy_motor", number: 1}).then((log) => {
         console.log("scearching furnace energy and motor");
 
-        //console.log("result: " + log);
-
         if(log != undefined && log != null) {
             parameters.energy = log.energy;
             parameters.motor = log.motor;
-
-            console.log("found furnace energy and motor " + parameters.energy + "   " + parameters.motor);
         }
         else {
             actions.insert({"type": "furnace_energy_motor",
@@ -202,13 +195,20 @@ router.get('/', function(req, res, next) {
 
 router.post("/ip", function(req, res){
 	console.log("IP do esp: " + req.body);
+
+	req.db.get("reading_log").find({}, {limit: 1, sort: {_id: -1}}, function(err, log) {
+		if(err){
+			throw err;
+		}
+
+        res.send((log[0]._id+1).toString());
+    });
 });
 
 router.post("/log", function(req, res){
     var db = req.db;
     var reading_log = db.get('reading_log');
 
-    //order decrescent to get max id
     reading_log.find({}, {sort: {_id: -1}}, function(err, log) {
         if(err)
             throw err;
@@ -234,6 +234,18 @@ router.post("/download", function(req, res){
                 }
             });
         });
+    });
+});
+
+router.post("/getLastId", function(req, res){
+	var db = req.db;
+    var reading_log = db.get('reading_log');
+
+    //order decrescent to get max id
+    reading_log.find({}, {limit: 1, sort: {_id: -1}}, function(err, log) {
+        if(log != undefined && log != null) {
+            res.json(log[0]._id);
+        }
     });
 });
 
