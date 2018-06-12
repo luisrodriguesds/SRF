@@ -23,7 +23,7 @@ exports.injectData = function(_actions, _log, data, callback) {
           	}, function(err, r) {
             	callback();
 
-                if(data.author == "Forno Livre" || !data.author || data.author == ""){
+                if(data.author == "Forno Livre" || !data.author || data.author == "" || data.author == undefined){
                     if(log.length >= 9000){
                         _log.remove({_id: log._id}, function(err, obj){
                             if(err){

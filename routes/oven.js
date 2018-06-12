@@ -193,9 +193,7 @@ router.get('/', function(req, res, next) {
     });
 });
 
-router.post("/ip", function(req, res){
-	console.log("IP do esp: " + req.body);
-
+router.post("/init", function(req, res){
 	req.db.get("reading_log").find({}, {limit: 1, sort: {_id: -1}}, function(err, log) {
 		if(err){
 			throw err;

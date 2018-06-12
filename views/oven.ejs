@@ -171,7 +171,7 @@
 					$("#chip-1").show();
 
 					lock(_user_name, session_user_name);
-					$("#furnace-1-action-button").text("Finalizar Análise");
+					$("#furnace-1-action-button").text("Parar de Gravar Leituras");
 					$("#analysis_begin_time").text(formatarData(new Date()));
 					$("#oven_available").text("Forno indisponível");
 					$("#oven_ball").css("background-color", "#E30000");
@@ -188,8 +188,10 @@
 					$("#chip-1 > .mdl-chip__contact").text("P");
 					$("#chip-1 > .mdl-chip__text").text("Placeholder");
 
+					init(document);
+
 					unlock();
-					$("#furnace-1-action-button").text("Iniciar Análise");
+					$("#furnace-1-action-button").text("Gravar Leituras");
 					$("#analysis_begin_time").text("Não há análise em andamento");
 					$("#oven_available").text("Forno disponível");
 					$("#oven_ball").css("background-color", "#29E314");
@@ -270,7 +272,7 @@
 
 							<!-- trocar esse botão por gravar análise -->
 							<a id="furnace-1-action-button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-								Iniciar Análise
+								Gravar Leituras
 							</a>
 							<div id="oven_ball"></div>
 							<span id="oven_available">Forno disponível</span>
@@ -292,7 +294,7 @@
 
 										unlock();
 										_user_name = false;
-										$("#furnace-1-action-button").text("Iniciar Análise");
+										$("#furnace-1-action-button").text("Gravar Leituras");
 										$("#oven_available").text("Forno disponível");
 										$("#oven_ball").css("background-color", "#29E314");
 
@@ -309,7 +311,7 @@
 										init(document);
 
 										lock(_user_name, session_user_name);
-										$("#furnace-1-action-button").text("Finalizar Análise");
+										$("#furnace-1-action-button").text("Parar de Gravar Leituras");
 										$("#oven_available").text("Forno indisponível");
 										$("#oven_ball").css("background-color", "#30000");
 										$("#quem-usa").text(_user_name);
@@ -421,7 +423,7 @@
 						<div id="chartContainer1" class="chart-card mdl-card mdl-shadow--2dp mdl-cell--12-col-desktop mdl-cell--12-col-phone"></div>
 					</div>
 					<p>Último dado recebido: <span id="last_data_received"><%- locals.last_data_time %></span></p>
-					<p>Início da análise: <span id="analysis_begin_time"><%- locals.dataset.begin_time %></span></p>
+					<p>Início da gravação: <span id="analysis_begin_time"><%- locals.dataset.begin_time %></span></p>
 				</div>
 			</div>
 		</div>
