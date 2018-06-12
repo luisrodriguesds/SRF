@@ -21,7 +21,7 @@ var fs = require("fs");
 router.post('/realTime', function(req, res, next) {
 	// checar se alguém está usando e gravar os dados de acordo
 
-    console.log(req.body);
+    //console.log(req.body);
 	
     try{
         var oven_content = JSON.parse(req.body);

@@ -1,6 +1,11 @@
 //var chart = require('./chartInjector.js');
 
 exports.init = function(server, request, callback) {
+	server.sockets.on('error', function (exception) {
+	  	// handle or ignore error
+	  	console.log("huhuhu");
+	});
+
 	server.sockets.on('connection', function(client) {
 	
 		client.emit('message', 'Sucefully connected!');
@@ -14,9 +19,15 @@ exports.init = function(server, request, callback) {
 	    	console.log("The client has disconnected");
 	    });
 
+	    client.on("error", function(e){
+	    	console.log("hihihi");
+	    });
+
 		client.on('using_furnace_1', function(payload) {
 			// apenas colocar no banco de dados que alguém está gravando
 			// e quem é essa pessoa
+
+			console.log("using furnace 1");
 
 			var data;
 
@@ -56,6 +67,8 @@ exports.init = function(server, request, callback) {
 
 		client.on('free_furnace_1', function(payload) {
 			// apenas colocar no banco de dados que ninguém está gravando
+
+			console.log("ending furnace 1");
 
 			request.post({url:'http://0.0.0.0:3000/oven/getLastId', form:{}}, (err, res, body) => {
 				server.sockets.in('general').emit('furnace_1_end', payload);
