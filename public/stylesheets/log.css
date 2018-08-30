@@ -1,0 +1,19 @@
+body {
+	background-color: #EDE7F6;
+	background: url("../images/lrx_background.png") center;
+}
+
+.bloco {
+	background-color: rgba(255, 255, 255, 1);
+	padding: 10px;
+	box-shadow: 0 2px 4px #444;
+	border: 1px solid #46b4ac;
+	width: 50%;
+    margin: 0 auto;
+    margin-bottom: 5px;
+}
+
+.botao {
+	color: white;
+	background-color: #4B0082;
+}

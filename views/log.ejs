@@ -3,19 +3,24 @@
 		<title>Fornos LRX - Histórico de Análises</title>
 
 		<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
+		<link rel="stylesheet" href="/stylesheets/log.css">
 	</head>
 	<body>
 		<!--<div id="chartContainer" style="height: 300px; width: 100%;"></div>-->
 
 		<% for(let i=0; i<log.length; i++){ %>
-			<h1>Análise <%- i %></h1>
-			<h3 style="color:grey;">Autor: <%- log[i].author %></h3>
-			<h3 style="color:grey;">Início: <%- log[i].begin_time %></h3>
-			<form action="/oven/download" method="post">
-				<input name="analise" type="text" value=<%- i %> hidden></input><br>
-				<button type="submit">Download</button>
-			</form>
+			<div class="bloco">
+				<h1>Análise <%- log[i]._id %></h1>
+				<h3 style="color:grey;">Autor: <%- log[i].author %></h3>
+				<h3 style="color:grey;">Início: <%- log[i].begin_time %></h3>
+				<form action="/oven/download" method="post">
+					<input name="analise" type="text" value=<%- log[i]._id %> hidden></input><br>
+					<button type="submit" class="botao">Download</button>
+				</form>
+			</div>
 		<% } %>
 	</body>
 
