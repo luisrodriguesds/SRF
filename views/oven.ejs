@@ -219,25 +219,14 @@
 					    for="demo-menu-lower-right">
 						<li disabled class="mdl-menu__item mdl-menu__item--full-bleed-divider">Opção</li>
 
-						<!--<form id="getUserAnalysis" action="/oven/log" method="post">
+						<form id="getUserAnalysis" action="/oven/log" method="post">
 							<input class="mdl-menu__item" id="get_log" type="submit" value="Mostrar histórico de análises">
-							<input id="bla" type="text" value="Mostrar histórico de análises">
-						</form>-->
-
-						<input class="mdl-menu__item" id="getMyAnalysis" type="submit" value="Mostrar meu histórico de análises">
+							<input id="user_email" name="user_email" hidden>
+						</form>
 
 						<script>
 							$("document").ready(function(){
-								/*$("#getMyAnalysis").click(function(){
-									$.post("/oven/log", {user_email: session_user_name}, function(data, status){
-										if(status == "success"){
-											var analysis = JSON.parse(data);
-											console.log(analysis);
-										} else {
-											console.log("foi pro saco");
-										}
-									});
-								});*/
+								$("#userId").val(session_user_name);
 							});
 						</script>
 

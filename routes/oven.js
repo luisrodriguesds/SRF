@@ -207,16 +207,14 @@ router.post("/log", function(req, res){
     var db = req.db;
     var reading_log = db.get('reading_log');
 
-    console.log(req.body);
-
     reading_log.find({author: req.body.user_email}, {sort: {_id: -1}}, function(err, log) {
         if(err){
             throw err;
         }
 
-        //res.render("log", {log: log});
+        res.render("log", {log: log});
 
-        res.end(JSON.stringify(log));
+        //res.end(JSON.stringify(log));
     });
 });
 
