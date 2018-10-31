@@ -15,3 +15,10 @@ Este projeto requer que o sistema fique executando como daemon.
 "run_daemon": "forever start ./bin/www",
 "list_daemons": "forever list",
 "kill_daemons": "forever stopall"
+
+CHECAR SE MONGODB ESTÁ ATIVADO!!!! CASO CONTRÁRIO, O SISTEMA NÃO FUNCIONARÁ!!!
+
+-> Para iniciar o mongodb digite:
+sudo service start mongod
+
+Após isso você poderá inicializar o daemon.

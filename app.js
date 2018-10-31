@@ -18,6 +18,7 @@ var db = monk('localhost/srf'); // 0.0.0.0:27017 = localhost
 var index = require('./routes/index');
 var oven = require('./routes/oven');
 var auth = require('./routes/auth');
+var diario = require('./routes/diario');
 
 var app = express();
 
@@ -65,6 +66,7 @@ app.use(function(req,res,next){
 app.use('/', index);
 app.use('/auth', auth);
 app.use('/oven', oven);
+app.use('/diario', diario);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
