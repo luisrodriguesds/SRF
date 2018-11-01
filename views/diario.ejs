@@ -11,41 +11,255 @@
     <body>
         <div class="mdl-layout mdl-js-layout">
             <header class="mdl-layout__header">
-              <div class="mdl-layout__header-row">
-                    <!-- Title -->
-                    <span class="mdl-layout-title">Fornos LRX</span>
-                    <!-- Add spacer, to align navigation to the right -->
-                    <div class="mdl-layout-spacer"></div>
-                    <button id="demo-menu-lower-right"
-                          class="mdl-button mdl-js-button mdl-button--icon">
-                      <i class="material-icons">more_vert</i>
-                  </button>
-
-                  <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-                      for="demo-menu-lower-right">
-                      <li disabled class="mdl-menu__item mdl-menu__item--full-bleed-divider">Opção</li>
-                      <form id="diarioLogbook" action="/diario" method="post">
-                          <input type="submit" class="md1-menu__item" method="post">
-                      </form>
-                      <form id="getUserAnalysis" action="/oven/log" method="post">
-                          <input class="mdl-menu__item" id="get_log" type="submit" value="Mostrar histórico de análises">
-                          <input id="user_email" name="user_email" hidden>
-                      </form>
-                      <script>
-                          $("document").ready(function(){
-                              $("#user_email").val(session_user_name);
-                          });
-                      </script>
-
-                      <form action="/auth/exit" method="POST" target="_self">
-                          <li class="mdl-menu__item"> <button class="mdl-menu__item" type="submit"/> Sair </li>
-                      </form>	
-                  </ul>
-              </div>
+                    <div class="mdl-layout__header-row">
+                            <!-- Title -->
+                            <span class="mdl-layout-title">Fornos LRX</span>
+                            <!-- Add spacer, to align navigation to the right -->
+                            <div class="mdl-layout-spacer"></div>
+                            <button id="demo-menu-lower-right"
+                                  class="mdl-button mdl-js-button mdl-button--icon">
+                              <i class="material-icons">more_vert</i>
+                          </button>
+        
+                          <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                              for="demo-menu-lower-right">
+                              <li disabled class="mdl-menu__item mdl-menu__item--full-bleed-divider">Opção</li>
+                              <form id="diarioLogbook" action="/diario" method="post">
+                                  <input type="submit" class="md1-menu__item" method="post">
+                              </form>
+                              <form id="getUserAnalysis" action="/oven/log" method="post">
+                                  <input class="mdl-menu__item" id="get_log" type="submit" value="Mostrar histórico de análises">
+                                  <input id="user_email" name="user_email" hidden>
+                              </form>
+                              <script>
+                                  $("document").ready(function(){
+                                      $("#user_email").val(session_user_name);
+                                  });
+                              </script>
+                              <form action="/auth/exit" method="POST" target="_self">
+                                  <li class="mdl-menu__item"> <button class="mdl-menu__item" type="submit"/>Sair</li>
+                              </form>	
+                          </ul>
+                      </div>
             </header>
-      </div>
-      <div>
-        >
+            <section class="md1-layout__drawer mdl-grid">
+                    <div>
+                        <span class=" mdl-layout-title mdl-cell mdl-cell--12-col-desktop mdl-cell--middle">Selecione o Forno</span>
+                    </div>
+                    <br><br>
+            </section>
+            <section>
+                <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdl-grid">
+                    <div class="mdl-tabs__tab-bar mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
+                        <a href="#forno1-panel" class="mdl-tabs__tab is-active">Forno1</a>
+                        <a href="#forno2-panel" class="mdl-tabs__tab">Forno2</a>
+                        <a href="#forno3-panel" class="mdl-tabs__tab">Forno3</a>
+                        <a href="#forno4-panel" class="mdl-tabs__tab">Forno4</a>
+                    </div>
+                    <div class="mdl-tabs__panel is-active  mdl-cell--8-col-desktop mdl-cell--2-offset-desktop" id="forno1-panel">
+                        <div class="mdl-layout__content">
+                            <ul style="list-style:none">
+                                <br><br>
+                                <li>
+                                    <div class="mdl-card mdl-cell--10-col-desktop mdl-cell--middle" style="background-color:#f7f2f2;">
+                                        <div class="mdl-card__title mdl-cell--middle"><span class="mdl-card__title-text">Soldar os
+                                                fios nas
+                                                placas dos modulos</span></div>
+                                        <div class="mdl-card__supporting-text mdl-cell--12-col-desktop">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Mauris sagittis pellentesque lacus eleifend lacinia...
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima repudiandae autem aut
+                                            porro
+                                            distinctio veritatis. Nam sint, ex cupiditate sequi perferendis itaque, quisquam
+                                            architecto natus
+                                            iusto reiciendis aperiam, exercitationem amet.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius iusto, suscipit minus
+                                            dolor fugiat
+                                            laudantium asperiores omnis fuga eum quas necessitatibus eos corporis numquam,
+                                            temporibus eligendi!
+                                            Quod neque deleniti odit!
+                                        </div>
+                                    </div>
+                                </li>
+                                <br><br>
+                                <li>
+                                    <div class="mdl-card mdl-cell--10-col-desktop mdl-cell--middle" style="background-color:#f7f2f2;">
+                                        <div class="mdl-card__title mdl-cell--middle"><span class="mdl-card__title-text">Solucao
+                                                para ruido</span></div>
+                                        <div class="mdl-card__supporting-text mdl-cell--12-col-desktop">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Mauris sagittis pellentesque lacus eleifend lacinia...
+                                        </div>
+                                    </div>
+                                </li>
+                                <br><br>
+                                <li>
+                                    <div class="mdl-card mdl-cell--10-col-desktop mdl-cell--middle" style="background-color:#f7f2f2;">
+                                        <div class="mdl-card__title mdl-cell--middle"><span class="mdl-card__title-text">Solucao
+                                                para ruido</span></div>
+                                        <div class="mdl-card__supporting-text mdl-cell--12-col-desktop">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Mauris sagittis pellentesque lacus eleifend lacinia...
+                                        </div>
+                                    </div>
+                                </li>
+                                <br><br>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mdl-tabs__panel  mdl-cell--8-col-desktop mdl-cell--2-offset-desktop" id="forno2-panel">
+                        <div class="mdl-layout__content">
+                            <ul style="list-style:none">
+                                <br><br>
+                                <li>
+                                    <div class="mdl-card mdl-cell--10-col-desktop mdl-cell--middle" style="background-color:#f7f2f2;">
+                                        <div class="mdl-card__title mdl-cell--middle"><span class="mdl-card__title-text">Criar o
+                                                conteudo para a página "como usar"</span></div>
+                                        <div class="mdl-card__supporting-text mdl-cell--12-col-desktop">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Mauris sagittis pellentesque lacus eleifend lacinia...
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima repudiandae autem aut
+                                            porro
+                                            distinctio veritatis. Nam sint, ex cupiditate sequi perferendis itaque, quisquam
+                                            architecto natus
+                                            iusto reiciendis aperiam, exercitationem amet.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius iusto, suscipit minus
+                                            dolor fugiat
+                                            laudantium asperiores omnis fuga eum quas necessitatibus eos corporis numquam,
+                                            temporibus eligendi!
+                                            Quod neque deleniti odit!
+                                        </div>
+                                    </div>
+                                </li>
+                                <br><br>
+                                <li>
+                                    <div class="mdl-card mdl-cell--10-col-desktop mdl-cell--middle" style="background-color:#f7f2f2;">
+                                        <div class="mdl-card__title mdl-cell--middle"><span class="mdl-card__title-text">Mostrar o
+                                                grafico da temperatura do forno</span></div>
+                                        <div class="mdl-card__supporting-text mdl-cell--12-col-desktop">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Mauris sagittis pellentesque lacus eleifend lacinia...
+                                        </div>
+                                    </div>
+                                </li>
+                                <br><br>
+                                <li>
+                                    <div class="mdl-card mdl-cell--10-col-desktop mdl-cell--middle" style="background-color:#f7f2f2;">
+                                        <div class="mdl-card__title mdl-cell--middle"><span class="mdl-card__title-text">Atualizar
+                                                Circuito e Diagrama</span></div>
+                                        <div class="mdl-card__supporting-text mdl-cell--12-col-desktop">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Mauris sagittis pellentesque lacus eleifend lacinia...
+                                        </div>
+                                    </div>
+                                </li>
+                                <br><br>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mdl-tabs__panel  mdl-cell--8-col-desktop mdl-cell--2-offset-desktop" id="forno3-panel">
+                        <div class="mdl-layout__content">
+                            <ul style="list-style:none">
+                                <br><br>
+                                <li>
+                                    <div class="mdl-card mdl-cell--10-col-desktop mdl-cell--middle" style="background-color:#f7f2f2;">
+                                        <div class="mdl-card__title mdl-cell--middle"><span class="mdl-card__title-text">Soldar os
+                                                fios nas
+                                                placas dos modulos</span></div>
+                                        <div class="mdl-card__supporting-text mdl-cell--12-col-desktop">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Mauris sagittis pellentesque lacus eleifend lacinia...
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima repudiandae autem aut
+                                            porro
+                                            distinctio veritatis. Nam sint, ex cupiditate sequi perferendis itaque, quisquam
+                                            architecto natus
+                                            iusto reiciendis aperiam, exercitationem amet.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius iusto, suscipit minus
+                                            dolor fugiat
+                                            laudantium asperiores omnis fuga eum quas necessitatibus eos corporis numquam,
+                                            temporibus eligendi!
+                                            Quod neque deleniti odit!
+                                        </div>
+                                    </div>
+                                </li>
+                                <br><br>
+                                <li>
+                                    <div class="mdl-card mdl-cell--10-col-desktop mdl-cell--middle" style="background-color:#f7f2f2;">
+                                        <div class="mdl-card__title mdl-cell--middle"><span class="mdl-card__title-text">Solucao
+                                                para ruido</span></div>
+                                        <div class="mdl-card__supporting-text mdl-cell--12-col-desktop">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Mauris sagittis pellentesque lacus eleifend lacinia...
+                                        </div>
+                                    </div>
+                                </li>
+                                <br><br>
+                                <li>
+                                    <div class="mdl-card mdl-cell--10-col-desktop mdl-cell--middle" style="background-color:#f7f2f2;">
+                                        <div class="mdl-card__title mdl-cell--middle"><span class="mdl-card__title-text">Solucao
+                                                para ruido</span></div>
+                                        <div class="mdl-card__supporting-text mdl-cell--12-col-desktop">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Mauris sagittis pellentesque lacus eleifend lacinia...
+                                        </div>
+                                    </div>
+                                </li>
+                                <br><br>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mdl-tabs__panel  mdl-cell--8-col-desktop mdl-cell--2-offset-desktop" id="forno4-panel">
+                        <div class="mdl-layout__content">
+                            <ul style="list-style:none">
+                                <br><br>
+                                <li>
+                                    <div class="mdl-card mdl-cell--10-col-desktop mdl-cell--middle" style="background-color:#f7f2f2;">
+                                        <div class="mdl-card__title mdl-cell--middle"><span class="mdl-card__title-text">Criar o
+                                                conteudo para a página "como usar"</span></div>
+                                        <div class="mdl-card__supporting-text mdl-cell--12-col-desktop">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Mauris sagittis pellentesque lacus eleifend lacinia...
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima repudiandae autem aut
+                                            porro
+                                            distinctio veritatis. Nam sint, ex cupiditate sequi perferendis itaque, quisquam
+                                            architecto natus
+                                            iusto reiciendis aperiam, exercitationem amet.
+                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius iusto, suscipit minus
+                                            dolor fugiat
+                                            laudantium asperiores omnis fuga eum quas necessitatibus eos corporis numquam,
+                                            temporibus eligendi!
+                                            Quod neque deleniti odit!
+                                        </div>
+                                    </div>
+                                </li>
+                                <br><br>
+                                <li>
+                                    <div class="mdl-card mdl-cell--10-col-desktop mdl-cell--middle" style="background-color:#f7f2f2;">
+                                        <div class="mdl-card__title mdl-cell--middle"><span class="mdl-card__title-text">Mostrar o
+                                                grafico da temperatura do forno</span></div>
+                                        <div class="mdl-card__supporting-text mdl-cell--12-col-desktop">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Mauris sagittis pellentesque lacus eleifend lacinia...
+                                        </div>
+                                    </div>
+                                </li>
+                                <br><br>
+                                <li>
+                                    <div class="mdl-card mdl-cell--10-col-desktop mdl-cell--middle" style="background-color:#f7f2f2;">
+                                        <div class="mdl-card__title mdl-cell--middle"><span class="mdl-card__title-text">Atualizar
+                                                Circuito e Diagrama</span></div>
+                                        <div class="mdl-card__supporting-text mdl-cell--12-col-desktop">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Mauris sagittis pellentesque lacus eleifend lacinia...
+                                        </div>
+                                    </div>
+                                </li>
+                                <br><br>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
       </div>
       <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
