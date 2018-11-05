@@ -42,12 +42,13 @@
                           </ul>
                       </div>
             </header>
-            <section class="md1-layout__drawer mdl-grid">
+            <section class="mdl-grid">
                     <div>
-                        <span class=" mdl-layout-title mdl-cell mdl-cell--12-col-desktop mdl-cell--middle">Selecione o Forno</span>
+                        <span class=" mdl-layout-title mdl-cell mdl-cell--8-col-mobile mdl-cell--12-col-desktop">Selecione o Forno</span>
                     </div>
                     <br><br>
             </section>
+            <br><br><br>
             <section>
                 <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect mdl-grid">
                     <div class="mdl-tabs__tab-bar mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
@@ -258,6 +259,33 @@
                             </ul>
                         </div>
                     </div>
+                </div>
+            </section><br><br><br><br><br>
+            <section class="mdl-grid" id="Preenchimento">
+                <div class="mdl-cell mdl-cell--middle mdl-cell--12-col-desktop">
+                        <span class="mdl-layout-title">
+                                Coloque uma tarefa
+                        </span><br>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input type="text" class="mdl-textfield__input" id="Nome">
+                            <label class="mdl-textfield__label" for="Nome">Nome de Usuario</label>
+                        </div><br>
+                        <span class="">Forno:</span>
+                        <select name="fornos">
+                            <option value="1">Forno1</option>
+                            <option value="2">Forno2</option>
+                            <option value="3">Forno3</option>
+                            <option value="4">Forno4</option>
+                        </select>
+                        <br>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input type="text" class="mdl-textfield__input" id="Titulo">
+                            <label class="mdl-textfield__label" for="Titulo">Tarefa</label>
+                        </div><br>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <textarea type="text" class="mdl-textfield__input" rows= "4" id="descricao"></textarea>
+                            <label class="mdl-textfield__label" for="descricao">Descricao</label>
+                        </div>               
                 </div>
             </section>
       </div>
