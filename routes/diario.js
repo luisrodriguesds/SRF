@@ -4,12 +4,24 @@ var router = express.Router();
 
 router.post('/',function(req,res){
     console.log("cheguei aqui");
-    res.render('diario', {message:'no_msg'});
+    var db = req.db;
+    var logTarefas = db.get('tarefasLog');
+   // console.log(logTarefas.find());
+    logTarefas.find({}, {sort: {_id: -1}},function (err, tarefas){ 
+        if(err)
+            throw(err);
+        res.render('diario', {message:'no_msg',tarefas:tarefas});
+    });
+    //console.log(tarefas.length);
 });
 
 router.get('/',function(req,res){
     console.log("postou");
-    res.render('diario',{message:'no_msg'});
+    var db = req.db;
+    var logTarefas = db.get('tarefasLog');
+    var tarefas = logTarefas.find();
+    res.render('diario',{message:'no_msg', tarefas:tarefas});
+    
 });
 
 
