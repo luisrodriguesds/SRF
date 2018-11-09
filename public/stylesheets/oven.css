@@ -18,7 +18,7 @@ body {
 .layer-0 > .main-cell {
 	margin-top: 5%;
 	text-align: center;
-	justify-content: center;
+	/* justify-content: center; */
 }
 
 .card-wide > .mdl-card__title {
@@ -27,7 +27,7 @@ body {
 	background-position: 0px 25%; 
 }
 
-.mdl-chip {
+/* .mdl-chip {
 	position: absolute;
 	right: 2%;
 	top: 1%;
@@ -35,22 +35,22 @@ body {
 
 .mdl-card__title-text {
 	font-size: 28px;
-}
+} */
 
 
 .card-wide.mdl-card {
-	width: 100%;
-	height: 486px;
+	width: 18%;
+	height: 500px;
+	display:inline-flex;
 }
 .card-wide > .mdl-card__title {
 	color: #fff;
-	height: 85%;
+	height: 200px;
 }
 .card-wide > .mdl-card__supporting-text {
 	text-align: left;
+
 }
-
-
 
 .card-toggler.mdl-card {
 	margin-top: 2%;
@@ -102,12 +102,12 @@ body {
 	}
 }
 
-#oven_available {
-	display:inline-block;
+.oven_available {
+	display:inline;
 	font-weight: bold;
 }
 
-#oven_ball {
+.oven_ball {
 	width:40px;
 	height:30px;
 	-webkit-border-radius: 99px;

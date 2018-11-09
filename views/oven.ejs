@@ -249,13 +249,13 @@
 					Css is used to give to it a margin and element allignment at center.
 					In the stylesheet scearch .main-cell attribute.
 				-->
-			<div class="main-cell mdl-cell mdl-cell--3-offset-desktop mdl-cell--6-col-desktop mdl-cell--0-offset-phone mdl-cell--12-col-phone">
+			<div class="main-cell mdl-cell mdl-cell--0-offset-desktop mdl-cell--12-col-desktop mdl-cell--0-offset-phone mdl-cell--12-col-phone">
 					<!-- This div aggregates all ovens cards -->
 				<div id="oven-div">
 						<!-- This card represents the oven. It contains the basic informations -->
 					<div class="card-wide mdl-card mdl-shadow--16dp">
 						<div class="mdl-card__title">
-							<h2 class="mdl-card__title-text"> Forno 1 </h2>
+							<h2 class="mdl-card__title-text"> Forno I </h2>
 							
 							<!-- Using Chip -->
 							<!--<span class="mdl-chip mdl-chip--contact" id="chip-1">
@@ -276,14 +276,14 @@
 						</div><br>-->
 
 						<div class="mdl-card__actions mdl-card--border">
-							<p style="display: inline-block"><span style="font-weight:bold">Usuário:</span> <span id="quem-usa"></span></p>
+							<!-- <p style="display: inline-block"><span style="font-weight:bold">Usuário:</span> <span id="quem-usa"></span></p> -->
 
 							<!-- trocar esse botão por gravar análise -->
-							<a id="furnace-1-action-button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+							<!-- <a id="furnace-1-action-button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
 								Gravar Leituras
-							</a>
-							<div id="oven_ball"></div>
-							<span id="oven_available">Forno disponível</span>
+							</a> -->
+							<div class="oven_ball"></div>
+							<span class="oven_available">Forno disponível</span>
 								<!-- we use jquery to execute the action of the button. Here
 									it's important to run jquery commands only after document 
 									is loaded. Otherwise $() function won't work and get the id
@@ -303,8 +303,8 @@
 										unlock();
 										_user_name = false;
 										$("#furnace-1-action-button").text("Gravar Leituras");
-										$("#oven_available").text("Forno disponível");
-										$("#oven_ball").css("background-color", "#29E314");
+										$(".oven_available").text("Forno disponível");
+										$(".oven_ball").css("background-color", "#29E314");
 
 										$("#quem-usa").text("Forno livre");
 									} 
@@ -320,8 +320,8 @@
 
 										lock(_user_name, session_user_name);
 										$("#furnace-1-action-button").text("Parar de Gravar Leituras");
-										$("#oven_available").text("Forno indisponível");
-										$("#oven_ball").css("background-color", "#30000");
+										$(".oven_available").text("Forno indisponível");
+										$(".oven_ball").css("background-color", "#30000");
 										$("#quem-usa").text(_user_name);
 									}
 
@@ -348,8 +348,288 @@
 						</div>
 
 					</div>
+					<div class="card-wide mdl-card mdl-shadow--16dp mdl-cell--1-offset-desktop">
+						<div class="mdl-card__title">
+							<h2 class="mdl-card__title-text"> Forno II </h2>
+							
+							<!-- Using Chip -->
+							<!--<span class="mdl-chip mdl-chip--contact" id="chip-1">
+							    <span class="mdl-chip__contact mdl-color--accent mdl-color-text--white">P</span>
+							    <span class="mdl-chip__text">Placeholder</span>
+							</span>-->
+						</div>
 
-		
+						<!--<div class="mdl-card__supporting-text">
+							<p>Olá, seja bem vindo ao Sistema de Monitoramento de Fornos LRX!
+							<br>Com o FORNO 1, você pode realizar as seguintes atividades:
+							<ul>
+								<li>Controle e monitoramento remoto de fornos.</li>
+								<li>Nanossínteses, superparamagnetismo, técnicas termomecânicas e químicas.</li>
+								<li>Telemetria e registro integral de dados físicos e químicos.</li>
+							</ul>
+							<br><br><br><br>
+						</div><br>-->
+
+						<div class="mdl-card__actions mdl-card--border">
+							<!-- <p style="display: inline-block"><span style="font-weight:bold">Usuário:</span> <span id="quem-usa"></span></p> -->
+
+							<!-- trocar esse botão por gravar análise -->
+							<!-- <a id="furnace-1-action-button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+								Gravar Leituras
+							</a> -->
+							<div class="oven_ball"></div>
+							<span class="oven_available">Forno disponível</span>
+								<!-- we use jquery to execute the action of the button. Here
+									it's important to run jquery commands only after document 
+									is loaded. Otherwise $() function won't work and get the id
+								-->
+							<script>
+								$("document").ready( function() {
+									if(trigger_use == "up") {
+										// não esconder
+										//$("#furnace-1-functions").hide();
+
+										$("#chip-1").hide();
+										$("#chip-1 > .mdl-chip__contact").text("P");
+										$("#chip-1 > .mdl-chip__text").text("Placeholder");
+
+										using_oven = false;
+
+										unlock();
+										_user_name = false;
+										$("#furnace-1-action-button").text("Gravar Leituras");
+										$(".oven_available").text("Forno disponível");
+										$(".oven_ball").css("background-color", "#29E314");
+
+										$("#quem-usa").text("Forno livre");
+									} 
+									if(trigger_use == "down") {
+										//$("#furnace-1-functions").show();
+
+										//$("#chip-1 > .mdl-chip__contact").text(_user_name[0]);
+										$("#chip-1 > .mdl-chip__text").text(_user_name);
+										$("#chip-1").show();
+
+										using_oven = true;
+										init(document);
+
+										lock(_user_name, session_user_name);
+										$("#furnace-1-action-button").text("Parar de Gravar Leituras");
+										$(".oven_available").text("Forno indisponível");
+										$(".oven_ball").css("background-color", "#30000");
+										$("#quem-usa").text(_user_name);
+									}
+
+									trigger_use = "none";
+
+									$("#furnace-1-action-button").click(function() {
+										if(!locked || _user_is_admin) {
+											if(using_oven == false) {
+												socket.emit('using_furnace_1', {_id: id, user_name: session_user_name});
+												socket.emit('energy', 'on');
+												socket.emit('motor', 'on');
+											}
+											else {
+												socket.emit('free_furnace_1', {_id: id + 1});
+												socket.emit('energy', 'off');
+												socket.emit('motor', 'off');
+											}
+
+											using_oven = !using_oven;
+										}
+									});
+								});
+							</script>
+						</div>
+					</div>
+					<div class="card-wide mdl-card mdl-shadow--16dp mdl-cell--1-offset-desktop">
+						<div class="mdl-card__title">
+							<h2 class="mdl-card__title-text"> Forno III </h2>
+							
+							<!-- Using Chip -->
+							<!--<span class="mdl-chip mdl-chip--contact" id="chip-1">
+							    <span class="mdl-chip__contact mdl-color--accent mdl-color-text--white">P</span>
+							    <span class="mdl-chip__text">Placeholder</span>
+							</span>-->
+						</div>
+
+						<!--<div class="mdl-card__supporting-text">
+							<p>Olá, seja bem vindo ao Sistema de Monitoramento de Fornos LRX!
+							<br>Com o FORNO 1, você pode realizar as seguintes atividades:
+							<ul>
+								<li>Controle e monitoramento remoto de fornos.</li>
+								<li>Nanossínteses, superparamagnetismo, técnicas termomecânicas e químicas.</li>
+								<li>Telemetria e registro integral de dados físicos e químicos.</li>
+							</ul>
+							<br><br><br><br>
+						</div><br>-->
+
+						<div class="mdl-card__actions mdl-card--border">
+							<!-- <p style="display: inline-block"><span style="font-weight:bold">Usuário:</span> <span id="quem-usa"></span></p> -->
+
+							<!-- trocar esse botão por gravar análise -->
+							<!-- <a id="furnace-1-action-button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+								Gravar Leituras
+							</a> -->
+							<div class="oven_ball"></div>
+							<span class="oven_available">Forno disponível</span>
+								<!-- we use jquery to execute the action of the button. Here
+									it's important to run jquery commands only after document 
+									is loaded. Otherwise $() function won't work and get the id
+								-->
+							<script>
+								$("document").ready( function() {
+									if(trigger_use == "up") {
+										// não esconder
+										//$("#furnace-1-functions").hide();
+
+										$("#chip-1").hide();
+										$("#chip-1 > .mdl-chip__contact").text("P");
+										$("#chip-1 > .mdl-chip__text").text("Placeholder");
+
+										using_oven = false;
+
+										unlock();
+										_user_name = false;
+										$("#furnace-1-action-button").text("Gravar Leituras");
+										$(".oven_available").text("Forno disponível");
+										$(".oven_ball").css("background-color", "#29E314");
+
+										$("#quem-usa").text("Forno livre");
+									} 
+									if(trigger_use == "down") {
+										//$("#furnace-1-functions").show();
+
+										//$("#chip-1 > .mdl-chip__contact").text(_user_name[0]);
+										$("#chip-1 > .mdl-chip__text").text(_user_name);
+										$("#chip-1").show();
+
+										using_oven = true;
+										init(document);
+
+										lock(_user_name, session_user_name);
+										$("#furnace-1-action-button").text("Parar de Gravar Leituras");
+										$(".oven_available").text("Forno indisponível");
+										$(".oven_ball").css("background-color", "#30000");
+										$("#quem-usa").text(_user_name);
+									}
+
+									trigger_use = "none";
+
+									$("#furnace-1-action-button").click(function() {
+										if(!locked || _user_is_admin) {
+											if(using_oven == false) {
+												socket.emit('using_furnace_1', {_id: id, user_name: session_user_name});
+												socket.emit('energy', 'on');
+												socket.emit('motor', 'on');
+											}
+											else {
+												socket.emit('free_furnace_1', {_id: id + 1});
+												socket.emit('energy', 'off');
+												socket.emit('motor', 'off');
+											}
+
+											using_oven = !using_oven;
+										}
+									});
+								});
+							</script>
+						</div>
+					</div>
+					<div class="card-wide mdl-card mdl-shadow--16dp mdl-cell--1-offset-desktop">
+						<div class="mdl-card__title">
+							<h2 class="mdl-card__title-text"> Forno IV </h2>
+							
+							<!-- Using Chip -->
+							<!--<span class="mdl-chip mdl-chip--contact" id="chip-1">
+							    <span class="mdl-chip__contact mdl-color--accent mdl-color-text--white">P</span>
+							    <span class="mdl-chip__text">Placeholder</span>
+							</span>-->
+						</div>
+
+						<!--<div class="mdl-card__supporting-text">
+							<p>Olá, seja bem vindo ao Sistema de Monitoramento de Fornos LRX!
+							<br>Com o FORNO 1, você pode realizar as seguintes atividades:
+							<ul>
+								<li>Controle e monitoramento remoto de fornos.</li>
+								<li>Nanossínteses, superparamagnetismo, técnicas termomecânicas e químicas.</li>
+								<li>Telemetria e registro integral de dados físicos e químicos.</li>
+							</ul>
+							<br><br><br><br>
+						</div><br>-->
+
+						<div class="mdl-card__actions mdl-card--border">
+							<!-- <p style="display: inline-block"><span style="font-weight:bold">Usuário:</span> <span id="quem-usa"></span></p> -->
+
+							<!-- trocar esse botão por gravar análise -->
+							<!-- <a id="furnace-1-action-button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+								Gravar Leituras
+							</a> -->
+							<div class="oven_ball"></div>
+							<span class="oven_available">Forno disponível</span>
+								<!-- we use jquery to execute the action of the button. Here
+									it's important to run jquery commands only after document 
+									is loaded. Otherwise $() function won't work and get the id
+								-->
+							<script>
+								$("document").ready( function() {
+									if(trigger_use == "up") {
+										// não esconder
+										//$("#furnace-1-functions").hide();
+
+										$("#chip-1").hide();
+										$("#chip-1 > .mdl-chip__contact").text("P");
+										$("#chip-1 > .mdl-chip__text").text("Placeholder");
+
+										using_oven = false;
+
+										unlock();
+										_user_name = false;
+										$("#furnace-1-action-button").text("Gravar Leituras");
+										$(".oven_available").text("Forno disponível");
+										$(".oven_ball").css("background-color", "#29E314");
+
+										$("#quem-usa").text("Forno livre");
+									} 
+									if(trigger_use == "down") {
+										//$("#furnace-1-functions").show();
+
+										//$("#chip-1 > .mdl-chip__contact").text(_user_name[0]);
+										$("#chip-1 > .mdl-chip__text").text(_user_name);
+										$("#chip-1").show();
+
+										using_oven = true;
+										init(document);
+
+										lock(_user_name, session_user_name);
+										$("#furnace-1-action-button").text("Parar de Gravar Leituras");
+										$(".oven_available").text("Forno indisponível");
+										$(".oven_ball").css("background-color", "#30000");
+										$("#quem-usa").text(_user_name);
+									}
+
+									trigger_use = "none";
+
+									$("#furnace-1-action-button").click(function() {
+										if(!locked || _user_is_admin) {
+											if(using_oven == false) {
+												socket.emit('using_furnace_1', {_id: id, user_name: session_user_name});
+												socket.emit('energy', 'on');
+												socket.emit('motor', 'on');
+											}
+											else {
+												socket.emit('free_furnace_1', {_id: id + 1});
+												socket.emit('energy', 'off');
+												socket.emit('motor', 'off');
+											}
+
+											using_oven = !using_oven;
+										}
+									});
+								});
+							</script>
+						</div>
+					</div>
 					<div id="furnace-1-functions" class="layer-1 mdl-grid">
 						<!-- here we put all cards that are functions of the furnace -->
 
@@ -387,6 +667,7 @@
 
 								</div>
 							</div>
+							
 						</div>
 
 							<!-- Motor Card -->
