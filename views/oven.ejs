@@ -4,7 +4,7 @@
 	<head>
 
 		<meta charset='UTF-8'>
-
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.deep_orange-deep_purple.min.css" />
 		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,500,400italic,700,700italic' rel='stylesheet' type='text/css'>
@@ -253,7 +253,7 @@
 					<!-- This div aggregates all ovens cards -->
 				<div id="oven-div">
 						<!-- This card represents the oven. It contains the basic informations -->
-					<div class="card-wide mdl-card mdl-shadow--16dp">
+					<div id="forno1" class="card-wide mdl-card mdl-shadow--16dp mdl-cell mdl-cell--2-col-desktop mdl-cell--12-col-phone fornos">
 						<div class="mdl-card__title">
 							<h2 class="mdl-card__title-text"> Forno I </h2>
 							
@@ -276,12 +276,7 @@
 						</div><br>-->
 
 						<div class="mdl-card__actions mdl-card--border">
-							<!-- <p style="display: inline-block"><span style="font-weight:bold">Usuário:</span> <span id="quem-usa"></span></p> -->
-
-							<!-- trocar esse botão por gravar análise -->
-							<!-- <a id="furnace-1-action-button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-								Gravar Leituras
-							</a> -->
+							
 							<div class="oven_ball"></div>
 							<span class="oven_available">Forno disponível</span>
 								<!-- we use jquery to execute the action of the button. Here
@@ -345,10 +340,16 @@
 									});
 								});
 							</script>
-						</div>
+							<p style="display: inline-block" id="usuario_f1"><span style="font-weight:bold">Usuário:</span> <span id="quem-usa"></span></p>
 
+							<!-- trocar esse botão por gravar análise -->
+							<a id="furnace-1-action-button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+								Gravar Leituras
+							</a>
+						</div>
+						<div id="chartContainer1" class="chart-card mdl-card mdl-shadow--2dp mdl-cell--12-col-desktop mdl-cell--12-col-phone"></div>
 					</div>
-					<div class="card-wide mdl-card mdl-shadow--16dp mdl-cell--1-offset-desktop">
+					<div id="forno2" class="card-wide mdl-card mdl-shadow--16dp mdl-cell mdl-cell--2-col-desktop mdl-cell--12-col-phone mdl-cell--1-offset-desktop fornos">
 						<div class="mdl-card__title">
 							<h2 class="mdl-card__title-text"> Forno II </h2>
 							
@@ -442,7 +443,7 @@
 							</script>
 						</div>
 					</div>
-					<div class="card-wide mdl-card mdl-shadow--16dp mdl-cell--1-offset-desktop">
+					<div id="forno3" class="card-wide mdl-card mdl-shadow--16dp mdl-cell mdl-cell--12-col-phone mdl-cell--2-col-desktop mdl-cell--1-offset-desktop fornos">
 						<div class="mdl-card__title">
 							<h2 class="mdl-card__title-text"> Forno III </h2>
 							
@@ -536,7 +537,7 @@
 							</script>
 						</div>
 					</div>
-					<div class="card-wide mdl-card mdl-shadow--16dp mdl-cell--1-offset-desktop">
+					<div id="forno4" class="card-wide mdl-card mdl-shadow--16dp mdl-cell mdl-cell--12-col-phone mdl-cell--2-col-desktop mdl-cell--1-offset-desktop fornos">
 						<div class="mdl-card__title">
 							<h2 class="mdl-card__title-text"> Forno IV </h2>
 							
@@ -630,18 +631,14 @@
 							</script>
 						</div>
 					</div>
-					<div id="furnace-1-functions" class="layer-1 mdl-grid">
+					<div id="furnace-1-functions" class="mdl-cell mdl-cell--10-col-desktop mdl-grid">
 						<!-- here we put all cards that are functions of the furnace -->
 
 							<!-- Energy Card -->
-						<div class="card-toggler mdl-card mdl-shadow--6dp mdl-cell--6-col-desktop mdl-cell--6-col-phone" style="margin-right: 3.5%;">
-							<div class="mdl-card__media">
-								<img src="images/plug.jpg" width = "600%" height="180%" style="margin-left: -200%; margin-top: -30%">
-							</div>
-
+						<div class="card-toggler mdl-card mdl-shadow--6dp mdl-cell mdl-cell--3-col-desktop" style="margin-right: 3.5%;">
 							<div class="content">
 								<div class="mdl-card__title">
-									<h3 style="margin-bottom: 40%;"> Energia </h3>
+									<h3> Energia </h3>
 								</div>
 
 								<div class="mdl-card__actions mdl-card--border" >
@@ -669,16 +666,16 @@
 							</div>
 							
 						</div>
-
+						
 							<!-- Motor Card -->
-						<div class="card-toggler mdl-card mdl-shadow--6dp mdl-cell--6-col-desktop mdl-cell--6-col-phone">
-							<div class="mdl-card__media">
-								<img src="images/motor.jpg" width = "500%" height="200%" style="margin-left: -150%; margin-top: -50%">
-							</div>
+						<div class="card-toggler mdl-card mdl-shadow--6dp mdl-cell mdl-cell--3-col-desktop">
+							<!-- <div class="mdl-card__media">
+								<img src="images/motor.jpg">
+							</div> -->
 
 							<div class="content">
 								<div class="mdl-card__title">
-									<h3 style="margin-bottom: 40%;"> Motor </h3>
+									<h3> Motor </h3>
 								</div>
 
 								<div class="mdl-card__actions mdl-card--border" >
@@ -701,15 +698,34 @@
 											});
 										});
 									</script>
-
 								</div>
 							</div>
 						</div>
-
+						
+						<script>
+							$("document").ready(function(){
+								$("#furnace-1-functions").hide();
+								$('#furnace-1-action-button').hide();
+								$("#usuario_f1").hide();
+								$(".fornos").on("click", function(){
+									$(this).addClass("selecionado");
+									$(".fornos").fadeOut();
+									$(".fornos.selecionado").fadeIn();
+									if($(this).is("#forno1")){
+										$("#furnace-1-functions").show();
+										$("#chartContainer1").hide();
+										$("#usuario_f1").show();
+										$("#furnace-1-action-button").show();
+										
+									}
+									
+								});
+							});
+						</script>
 							<!-- The temperature chart runs in this DIV. All changes are made in chartViwer.js script.
 								Div name is a target for the script for draw the char.
 							 -->
-						<div id="chartContainer1" class="chart-card mdl-card mdl-shadow--2dp mdl-cell--12-col-desktop mdl-cell--12-col-phone"></div>
+						<div id="chartContainer1" class="chart-card mdl-card mdl-shadow--2dp mdl-cell--8-col-desktop mdl-cell--12-col-phone" style="float:right;"></div>
 					</div>
 					<p>Último dado recebido: <span id="last_data_received"><%- locals.last_data_time %></span></p>
 					<p>Início da gravação: <span id="analysis_begin_time"><%- locals.dataset.begin_time %></span></p>

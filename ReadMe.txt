@@ -19,6 +19,5 @@ Este projeto requer que o sistema fique executando como daemon.
 CHECAR SE MONGODB ESTÁ ATIVADO!!!! CASO CONTRÁRIO, O SISTEMA NÃO FUNCIONARÁ!!!
 
 -> Para iniciar o mongodb digite:
-sudo service start mongod
-
+sudo service mongod start
 Após isso você poderá inicializar o daemon.

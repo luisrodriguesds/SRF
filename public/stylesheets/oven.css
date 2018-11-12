@@ -17,7 +17,7 @@ body {
 
 .layer-0 > .main-cell {
 	margin-top: 5%;
-	text-align: center;
+	/* text-align: center; */
 	/* justify-content: center; */
 }
 
@@ -39,7 +39,7 @@ body {
 
 
 .card-wide.mdl-card {
-	width: 18%;
+	/* width: 18%; */
 	height: 500px;
 	display:inline-flex;
 }
@@ -52,7 +52,14 @@ body {
 
 }
 
-.card-toggler.mdl-card {
+/* #furnace-1-functions{
+	float:right;
+	
+} */
+/* #furnace-1-functions #chartContainer1{
+	margin-top:-30%;
+} */
+/* .card-toggler.mdl-card {
 	margin-top: 2%;
 	width: 48%;
 	flex-direction: column;
@@ -79,14 +86,15 @@ body {
 
 .card-toggler > .content.mdl-card__actions {
 	height: 30%;
-}
+} */
 
 
-.chart-card.mdl-cell--12-col-desktop {
+
+/* .chart-card.mdl-cell--12-col-desktop {
 	height: 600px; 
 	width: 400%; 
 	margin-top: 2%;
-}
+} */
 
 @media screen and (max-width: 1080px) {
 	.mdl-layout__header {
@@ -118,4 +126,8 @@ body {
 
 #furnace-1-action-button {
 	display:inline-block;
+}
+
+#furnace-1-functions{
+	float:right;
 }
