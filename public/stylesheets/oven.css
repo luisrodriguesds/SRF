@@ -96,6 +96,10 @@ body {
 	margin-top: 2%;
 } */
 
+.card-toggler{
+	height:200px;
+}
+
 @media screen and (max-width: 1080px) {
 	.mdl-layout__header {
 	    display: -webkit-flex; display: -ms-flexbox; display: flex;
@@ -107,6 +111,12 @@ body {
 
 	.layer-0 > .main-cell {
 		margin-top: 15%;
+	}
+}
+@media screen and (min-width:720px){
+	.afazeres{
+		float:right;
+		margin-top:-200px;
 	}
 }
 
@@ -130,4 +140,12 @@ body {
 
 #furnace-1-functions{
 	float:right;
+}
+
+/* .afazeres{
+	background-color: transparent;
+} */
+.afazeres ul{
+	overflow:auto;
+	height:250px;
 }

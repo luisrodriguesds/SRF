@@ -709,6 +709,34 @@
 								$("#usuario_f1").hide();
 								$(".fornos").on("click", function(){
 									$(this).addClass("selecionado");
+									var paramt; 
+									$.get('/diario/obterTarefas',paramt,function(data){
+										console.log(data.tarefas);
+										$(".afazeres ul").empty();
+										//console.log("limpou");
+										for(let tarefa in data.tarefas){
+											//console.log("entrou no laco");
+											//console.log(tarefa);
+											if(data.tarefas[tarefa]._forno == "1")
+											{
+												//console.log("entrou condicao");
+												let elementoLista = document.createElement("li");
+												elementoLista.classList.add("mdl-list__item");
+												let elementoConteudo = document.createElement("span");
+												elementoConteudo.classList.add("mdl-list__item-primary-content");
+												elementoConteudo.innerHTML = data.tarefas[tarefa]._titulo;
+												$(elementoLista).attr("id","forno1_"+tarefa);
+												let elementoDetalhe = document.createElement("div");
+												elementoDetalhe.classList.add("mdl-tooltip");
+												$(elementoDetalhe).attr("for","forno1_"+tarefa);
+												elementoDetalhe.innerHTML = data.tarefas[tarefa]._descricao;
+												$(".afazeres ul").append(elementoDetalhe);
+												$(elementoLista).append(elementoConteudo);
+												$(".afazeres ul").append(elementoLista);
+
+											}
+										}
+									});
 									$(".fornos").fadeOut();
 									$(".fornos.selecionado").fadeIn();
 									if($(this).is("#forno1")){
@@ -716,6 +744,7 @@
 										$("#chartContainer1").hide();
 										$("#usuario_f1").show();
 										$("#furnace-1-action-button").show();
+
 										
 									}
 									
@@ -725,10 +754,25 @@
 							<!-- The temperature chart runs in this DIV. All changes are made in chartViwer.js script.
 								Div name is a target for the script for draw the char.
 							 -->
-						<div id="chartContainer1" class="chart-card mdl-card mdl-shadow--2dp mdl-cell--8-col-desktop mdl-cell--12-col-phone" style="float:right;"></div>
+						<div id="chartContainer1-2" class="chart-card mdl-card mdl-shadow--2dp mdl-cell--7-col-desktop mdl-cell--12-col-phone" style="float:right;"></div>
+						<div class="afazeres mdl-card mdl-cell--1-offset-desktop mdl-cell--3-desktop">
+								<div class="mdl-card__title"><h3>Lista de Afazeres</h3></div>
+								<div class="mdl-card__supporting-text">
+									<ul class="mdl-list">
+										<li class="mdl-list__item">
+											<span class="mdl-list__item-primary-content">
+												
+											</span>
+										</li>
+	
+									</ul>
+								</div>							
+						</div>
 					</div>
 					<p>Último dado recebido: <span id="last_data_received"><%- locals.last_data_time %></span></p>
 					<p>Início da gravação: <span id="analysis_begin_time"><%- locals.dataset.begin_time %></span></p>
+					<p id="tt1">HTML</p>
+					<span for="tt1" class="mdl-tooltip">HyperText Markup Language</span>
 				</div>
 			</div>
 		</div>

@@ -19,9 +19,21 @@ router.get('/',function(req,res){
     console.log("postou");
     var db = req.db;
     var logTarefas = db.get('tarefasLog');
-    var tarefas = logTarefas.find();
-    res.render('diario',{message:'no_msg', tarefas:tarefas});
+    logTarefas.find({}, {sort: {_id: -1}},function (err, tarefas){ 
+        if(err)
+            throw(err);
+        res.render('diario', {message:'no_msg',tarefas:tarefas});
+    });
     
+});
+router.get('/obterTarefas', function (req,res){
+    var db = req.db;
+    var logTarefas = db.get('tarefasLog');
+    logTarefas.find({}, {sort: {_id: -1}},function (err, tarefas){ 
+        if(err)
+            throw(err);
+        res.send({message:'no_msg',tarefas:tarefas});
+    });
 });
 
 
