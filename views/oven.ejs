@@ -214,7 +214,14 @@
 					        class="mdl-button mdl-js-button mdl-button--icon">
 						<i class="material-icons">more_vert</i>
 					</button>
-
+					<script>
+						$(document).ready(function(){
+							// $("#demo-menu-lower-right").on("click",function(){
+							// 	$(".mdl-menu").css("z-index","999");
+							// 	$(".fornos").css("z-index","-1");
+							// });
+						});
+					</script>
 					<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
 					    for="demo-menu-lower-right">
 						<li disabled class="mdl-menu__item mdl-menu__item--full-bleed-divider">Opção</li>
@@ -237,13 +244,15 @@
 					</ul>
 	    		</div>
 	  		</header>
-		</div>
+		
 
 		<!-- setup site content with mdl grid --> 
 
 			<!-- layer-0 is the basic container for our divs that show the main content of page.
 				It will controll the page layout
 			 -->
+	<div class="mdl-layout__content">
+
 		<div class="layer-0 mdl-grid">
 				<!-- main content goes inside main cell, that is positioned on the center of page.
 					Css is used to give to it a margin and element allignment at center.
@@ -298,8 +307,8 @@
 										unlock();
 										_user_name = false;
 										$("#furnace-1-action-button").text("Gravar Leituras");
-										$(".oven_available").text("Forno disponível");
-										$(".oven_ball").css("background-color", "#29E314");
+										$(".oven_available:eq(0)").text("Forno disponível");
+										$(".oven_ball:eq(0)").css("background-color", "#29E314");
 
 										$("#quem-usa").text("Forno livre");
 									} 
@@ -315,8 +324,8 @@
 
 										lock(_user_name, session_user_name);
 										$("#furnace-1-action-button").text("Parar de Gravar Leituras");
-										$(".oven_available").text("Forno indisponível");
-										$(".oven_ball").css("background-color", "#30000");
+										$(".oven_available:eq(0)").text("Forno Ocupado");
+										$(".oven_ball:eq(0)").css("background-color", "#30000");
 										$("#quem-usa").text(_user_name);
 									}
 
@@ -379,66 +388,15 @@
 								Gravar Leituras
 							</a> -->
 							<div class="oven_ball"></div>
-							<span class="oven_available">Forno disponível</span>
+							<span class="oven_available">Forno indisponível</span>
 								<!-- we use jquery to execute the action of the button. Here
 									it's important to run jquery commands only after document 
 									is loaded. Otherwise $() function won't work and get the id
 								-->
 							<script>
-								$("document").ready( function() {
-									if(trigger_use == "up") {
-										// não esconder
-										//$("#furnace-1-functions").hide();
-
-										$("#chip-1").hide();
-										$("#chip-1 > .mdl-chip__contact").text("P");
-										$("#chip-1 > .mdl-chip__text").text("Placeholder");
-
-										using_oven = false;
-
-										unlock();
-										_user_name = false;
-										$("#furnace-1-action-button").text("Gravar Leituras");
-										$(".oven_available").text("Forno disponível");
-										$(".oven_ball").css("background-color", "#29E314");
-
-										$("#quem-usa").text("Forno livre");
-									} 
-									if(trigger_use == "down") {
-										//$("#furnace-1-functions").show();
-
-										//$("#chip-1 > .mdl-chip__contact").text(_user_name[0]);
-										$("#chip-1 > .mdl-chip__text").text(_user_name);
-										$("#chip-1").show();
-
-										using_oven = true;
-										init(document);
-
-										lock(_user_name, session_user_name);
-										$("#furnace-1-action-button").text("Parar de Gravar Leituras");
-										$(".oven_available").text("Forno indisponível");
-										$(".oven_ball").css("background-color", "#30000");
-										$("#quem-usa").text(_user_name);
-									}
-
-									trigger_use = "none";
-
-									$("#furnace-1-action-button").click(function() {
-										if(!locked || _user_is_admin) {
-											if(using_oven == false) {
-												socket.emit('using_furnace_1', {_id: id, user_name: session_user_name});
-												socket.emit('energy', 'on');
-												socket.emit('motor', 'on');
-											}
-											else {
-												socket.emit('free_furnace_1', {_id: id + 1});
-												socket.emit('energy', 'off');
-												socket.emit('motor', 'off');
-											}
-
-											using_oven = !using_oven;
-										}
-									});
+								$("document").ready(function(){
+									$(".oven_ball:eq(1)").css("background-color","#a3a3a3");
+									$(".oven_available:eq(1)").text("Forno Indisponivel");
 								});
 							</script>
 						</div>
@@ -478,63 +436,12 @@
 									it's important to run jquery commands only after document 
 									is loaded. Otherwise $() function won't work and get the id
 								-->
-							<script>
-								$("document").ready( function() {
-									if(trigger_use == "up") {
-										// não esconder
-										//$("#furnace-1-functions").hide();
-
-										$("#chip-1").hide();
-										$("#chip-1 > .mdl-chip__contact").text("P");
-										$("#chip-1 > .mdl-chip__text").text("Placeholder");
-
-										using_oven = false;
-
-										unlock();
-										_user_name = false;
-										$("#furnace-1-action-button").text("Gravar Leituras");
-										$(".oven_available").text("Forno disponível");
-										$(".oven_ball").css("background-color", "#29E314");
-
-										$("#quem-usa").text("Forno livre");
-									} 
-									if(trigger_use == "down") {
-										//$("#furnace-1-functions").show();
-
-										//$("#chip-1 > .mdl-chip__contact").text(_user_name[0]);
-										$("#chip-1 > .mdl-chip__text").text(_user_name);
-										$("#chip-1").show();
-
-										using_oven = true;
-										init(document);
-
-										lock(_user_name, session_user_name);
-										$("#furnace-1-action-button").text("Parar de Gravar Leituras");
-										$(".oven_available").text("Forno indisponível");
-										$(".oven_ball").css("background-color", "#30000");
-										$("#quem-usa").text(_user_name);
-									}
-
-									trigger_use = "none";
-
-									$("#furnace-1-action-button").click(function() {
-										if(!locked || _user_is_admin) {
-											if(using_oven == false) {
-												socket.emit('using_furnace_1', {_id: id, user_name: session_user_name});
-												socket.emit('energy', 'on');
-												socket.emit('motor', 'on');
-											}
-											else {
-												socket.emit('free_furnace_1', {_id: id + 1});
-												socket.emit('energy', 'off');
-												socket.emit('motor', 'off');
-											}
-
-											using_oven = !using_oven;
-										}
+								<script>
+									$("document").ready(function(){
+										$(".oven_ball:eq(2)").css("background-color","#a3a3a3");
+										$(".oven_available:eq(2)").text("Forno Indisponivel");
 									});
-								});
-							</script>
+								</script>
 						</div>
 					</div>
 					<div id="forno4" class="card-wide mdl-card mdl-shadow--16dp mdl-cell mdl-cell--12-col-phone mdl-cell--2-col-desktop mdl-cell--1-offset-desktop fornos">
@@ -572,66 +479,15 @@
 									it's important to run jquery commands only after document 
 									is loaded. Otherwise $() function won't work and get the id
 								-->
-							<script>
-								$("document").ready( function() {
-									if(trigger_use == "up") {
-										// não esconder
-										//$("#furnace-1-functions").hide();
-
-										$("#chip-1").hide();
-										$("#chip-1 > .mdl-chip__contact").text("P");
-										$("#chip-1 > .mdl-chip__text").text("Placeholder");
-
-										using_oven = false;
-
-										unlock();
-										_user_name = false;
-										$("#furnace-1-action-button").text("Gravar Leituras");
-										$(".oven_available").text("Forno disponível");
-										$(".oven_ball").css("background-color", "#29E314");
-
-										$("#quem-usa").text("Forno livre");
-									} 
-									if(trigger_use == "down") {
-										//$("#furnace-1-functions").show();
-
-										//$("#chip-1 > .mdl-chip__contact").text(_user_name[0]);
-										$("#chip-1 > .mdl-chip__text").text(_user_name);
-										$("#chip-1").show();
-
-										using_oven = true;
-										init(document);
-
-										lock(_user_name, session_user_name);
-										$("#furnace-1-action-button").text("Parar de Gravar Leituras");
-										$(".oven_available").text("Forno indisponível");
-										$(".oven_ball").css("background-color", "#30000");
-										$("#quem-usa").text(_user_name);
-									}
-
-									trigger_use = "none";
-
-									$("#furnace-1-action-button").click(function() {
-										if(!locked || _user_is_admin) {
-											if(using_oven == false) {
-												socket.emit('using_furnace_1', {_id: id, user_name: session_user_name});
-												socket.emit('energy', 'on');
-												socket.emit('motor', 'on');
-											}
-											else {
-												socket.emit('free_furnace_1', {_id: id + 1});
-												socket.emit('energy', 'off');
-												socket.emit('motor', 'off');
-											}
-
-											using_oven = !using_oven;
-										}
+								<script>
+									$("document").ready(function(){
+										$(".oven_ball:eq(3)").css("background-color","#a3a3a3");
+										$(".oven_available:eq(3)").text("Forno Indisponivel");
 									});
-								});
-							</script>
+								</script>
 						</div>
 					</div>
-					<div id="furnace-1-functions" class="mdl-cell mdl-cell--10-col-desktop mdl-grid">
+					<div id="furnace-1-functions" class="mdl-cell mdl-cell--10-col-desktop mdl-grid furnace-functions">
 						<!-- here we put all cards that are functions of the furnace -->
 
 							<!-- Energy Card -->
@@ -701,56 +557,6 @@
 								</div>
 							</div>
 						</div>
-						
-						<script>
-							$("document").ready(function(){
-								$("#furnace-1-functions").hide();
-								$('#furnace-1-action-button').hide();
-								$("#usuario_f1").hide();
-								$(".fornos").on("click", function(){
-									$(this).addClass("selecionado");
-									var paramt; 
-									$.get('/diario/obterTarefas',paramt,function(data){
-										console.log(data.tarefas);
-										$(".afazeres ul").empty();
-										//console.log("limpou");
-										for(let tarefa in data.tarefas){
-											//console.log("entrou no laco");
-											//console.log(tarefa);
-											if(data.tarefas[tarefa]._forno == "1")
-											{
-												//console.log("entrou condicao");
-												let elementoLista = document.createElement("li");
-												elementoLista.classList.add("mdl-list__item");
-												let elementoConteudo = document.createElement("span");
-												elementoConteudo.classList.add("mdl-list__item-primary-content");
-												elementoConteudo.innerHTML = data.tarefas[tarefa]._titulo;
-												$(elementoLista).attr("id","forno1_"+tarefa);
-												let elementoDetalhe = document.createElement("div");
-												elementoDetalhe.classList.add("mdl-tooltip");
-												$(elementoDetalhe).attr("for","forno1_"+tarefa);
-												elementoDetalhe.innerHTML = data.tarefas[tarefa]._descricao;
-												$(".afazeres ul").append(elementoDetalhe);
-												$(elementoLista).append(elementoConteudo);
-												$(".afazeres ul").append(elementoLista);
-
-											}
-										}
-									});
-									$(".fornos").fadeOut();
-									$(".fornos.selecionado").fadeIn();
-									if($(this).is("#forno1")){
-										$("#furnace-1-functions").show();
-										$("#chartContainer1").hide();
-										$("#usuario_f1").show();
-										$("#furnace-1-action-button").show();
-
-										
-									}
-									
-								});
-							});
-						</script>
 							<!-- The temperature chart runs in this DIV. All changes are made in chartViwer.js script.
 								Div name is a target for the script for draw the char.
 							 -->
@@ -769,13 +575,359 @@
 								</div>							
 						</div>
 					</div>
+					<div id="furnace-2-functions" class="mdl-cell mdl-cell--10-col-desktop mdl-grid furnace-functions">
+						<!-- here we put all cards that are functions of the furnace -->
+
+							<!-- Energy Card -->
+						<div class="card-toggler mdl-card mdl-shadow--6dp mdl-cell mdl-cell--3-col-desktop" style="margin-right: 3.5%;">
+							<div class="content">
+								<div class="mdl-card__title">
+									<h3> Energia </h3>
+								</div>
+
+								<div class="mdl-card__actions mdl-card--border" >
+									<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+									  <input type="checkbox" id="switch-2-1" class="mdl-switch__input" disabled>
+									  <span class="mdl-switch__label" id="switch-2-1-state"> Indisponivel </span>
+									</label>
+
+									<script type="text/javascript">
+										$("document").ready( function() {
+											
+										});
+									</script>
+
+								</div>
+							</div>
+							
+						</div>
+						
+							<!-- Motor Card -->
+						<div class="card-toggler mdl-card mdl-shadow--6dp mdl-cell mdl-cell--3-col-desktop ">
+							<!-- <div class="mdl-card__media">
+								<img src="images/motor.jpg">
+							</div> -->
+
+							<div class="content">
+								<div class="mdl-card__title">
+									<h3> Motor </h3>
+								</div>
+
+								<div class="mdl-card__actions mdl-card--border" >
+									<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
+									  <input type="checkbox" id="switch-2-2" class="mdl-switch__input" disabled>
+									  <span class="mdl-switch__label" id="switch-2-2-state"> Indisponivel </span>
+									</label>
+
+									<script>
+										$("document").ready( function() {
+											
+										});
+									</script>
+								</div>
+							</div>
+						</div>
+							<!-- The temperature chart runs in this DIV. All changes are made in chartViwer.js script.
+								Div name is a target for the script for draw the char.
+							 -->
+						<div id="chartContainer2-2" class="chart-card mdl-card mdl-shadow--2dp mdl-cell--7-col-desktop mdl-cell--12-col-phone" style="float:right;"></div>
+						<div class="afazeres mdl-card mdl-cell--1-offset-desktop mdl-cell--3-desktop">
+								<div class="mdl-card__title"><h3>Lista de Afazeres</h3></div>
+								<div class="mdl-card__supporting-text">
+									<ul class="mdl-list">
+										<li class="mdl-list__item">
+											<span class="mdl-list__item-primary-content">
+												
+											</span>
+										</li>
+	
+									</ul>
+								</div>							
+						</div>
+					</div>
+					<div id="furnace-3-functions" class="mdl-cell mdl-cell--10-col-desktop mdl-grid furnace-functions">
+						<!-- here we put all cards that are functions of the furnace -->
+
+							<!-- Energy Card -->
+						<div class="card-toggler mdl-card mdl-shadow--6dp mdl-cell mdl-cell--3-col-desktop" style="margin-right: 3.5%;">
+							<div class="content">
+								<div class="mdl-card__title">
+									<h3> Energia </h3>
+								</div>
+
+								<div class="mdl-card__actions mdl-card--border" >
+									<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+									  <input type="checkbox" id="switch-3-1" class="mdl-switch__input" disabled>
+									  <span class="mdl-switch__label" id="switch-3-1-state">Indisponivel</span>
+									</label>
+
+									<script type="text/javascript">
+										$("document").ready( function() {
+											
+										});
+									</script>
+
+								</div>
+							</div>
+							
+						</div>
+						
+							<!-- Motor Card -->
+						<div class="card-toggler mdl-card mdl-shadow--6dp mdl-cell mdl-cell--3-col-desktop">
+							<!-- <div class="mdl-card__media">
+								<img src="images/motor.jpg">
+							</div> -->
+
+							<div class="content">
+								<div class="mdl-card__title">
+									<h3> Motor </h3>
+								</div>
+
+								<div class="mdl-card__actions mdl-card--border" >
+									<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
+									  <input type="checkbox" id="switch-3-2" class="mdl-switch__input" disabled>
+									  <span class="mdl-switch__label" id="switch-3-2-state"> Indisponivel </span>
+									</label>
+
+									<script>
+										$("document").ready( function() {
+											
+										});
+									</script>
+								</div>
+							</div>
+						</div>
+							<!-- The temperature chart runs in this DIV. All changes are made in chartViwer.js script.
+								Div name is a target for the script for draw the char.
+							 -->
+						<div id="chartContainer3-2" class="chart-card mdl-card mdl-shadow--2dp mdl-cell--7-col-desktop mdl-cell--12-col-phone" style="float:right;"></div>
+						<div class="afazeres mdl-card mdl-cell--1-offset-desktop mdl-cell--3-desktop">
+								<div class="mdl-card__title"><h3>Lista de Afazeres</h3></div>
+								<div class="mdl-card__supporting-text">
+									<ul class="mdl-list">
+										<li class="mdl-list__item">
+											<span class="mdl-list__item-primary-content">
+												
+											</span>
+										</li>
+	
+									</ul>
+								</div>							
+						</div>
+					</div>
+					<div id="furnace-4-functions" class="mdl-cell mdl-cell--10-col-desktop mdl-grid furnace-functions">
+						<!-- here we put all cards that are functions of the furnace -->
+
+							<!-- Energy Card -->
+						<div class="card-toggler mdl-card mdl-shadow--6dp mdl-cell mdl-cell--3-col-desktop" style="margin-right: 3.5%;">
+							<div class="content">
+								<div class="mdl-card__title">
+									<h3> Energia </h3>
+								</div>
+
+								<div class="mdl-card__actions mdl-card--border" >
+									<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-1">
+									  <input type="checkbox" id="switch-4-1" class="mdl-switch__input" disabled>
+									  <span class="mdl-switch__label" id="switch-4-1-state"> Indisponivel </span>
+									</label>
+
+									<script type="text/javascript">
+										$("document").ready( function() {
+											
+										});
+									</script>
+
+								</div>
+							</div>
+							
+						</div>
+						
+							<!-- Motor Card -->
+						<div class="card-toggler mdl-card mdl-shadow--6dp mdl-cell mdl-cell--3-col-desktop">
+							<!-- <div class="mdl-card__media">
+								<img src="images/motor.jpg">
+							</div> -->
+
+							<div class="content">
+								<div class="mdl-card__title">
+									<h3> Motor </h3>
+								</div>
+
+								<div class="mdl-card__actions mdl-card--border" >
+									<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
+									  <input type="checkbox" id="switch-4-2" class="mdl-switch__input" disabled>
+									  <span class="mdl-switch__label" id="switch-4-2-state"> Indisponivel </span>
+									</label>
+
+									<script>
+										$("document").ready( function() {
+											
+										});
+									</script>
+								</div>
+							</div>
+						</div>
+							<!-- The temperature chart runs in this DIV. All changes are made in chartViwer.js script.
+								Div name is a target for the script for draw the char.
+							 -->
+						<div id="chartContainer4-2" class="chart-card mdl-card mdl-shadow--2dp mdl-cell--7-col-desktop mdl-cell--12-col-phone" style="float:right;"></div>
+						<div class="afazeres mdl-card mdl-cell--1-offset-desktop mdl-cell--3-desktop">
+								<div class="mdl-card__title"><h3>Lista de Afazeres</h3></div>
+								<div class="mdl-card__supporting-text">
+									<ul class="mdl-list">
+										<li class="mdl-list__item">
+											<span class="mdl-list__item-primary-content">
+												<!-- Lista dinamicamente carregada -->
+											</span>
+										</li>
+	
+									</ul>
+								</div>							
+						</div>
+					</div>
+					<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored" id="voltarForno">
+						<i class="material-icons">arrow_back</i>
+					</button>
 					<p>Último dado recebido: <span id="last_data_received"><%- locals.last_data_time %></span></p>
-					<p>Início da gravação: <span id="analysis_begin_time"><%- locals.dataset.begin_time %></span></p>
-					<p id="tt1">HTML</p>
-					<span for="tt1" class="mdl-tooltip">HyperText Markup Language</span>
+					<!-- <p>Início da gravação: <span id="analysis_begin_time"><%- locals.dataset.begin_time %></span></p> -->
+					<script>
+						$("document").ready(function(){
+							$(".furnace-functions").hide();
+							$("#voltarForno").hide();
+							$('#furnace-1-action-button').hide();
+							$("#usuario_f1").hide();
+							$(".fornos").on("click", function(){
+								$(this).addClass("selecionado");
+								var paramt; 
+								$.get('/diario/obterTarefas',paramt,function(data){
+									console.log(data.tarefas);
+									$(".afazeres ul").empty();
+									//console.log("limpou");
+									for(let tarefa in data.tarefas){
+										//console.log("entrou no laco");
+										//console.log(tarefa);
+										if($("#forno1").hasClass("selecionado")){
+											if (data.tarefas[tarefa]._forno == "1") {
+												//console.log("entrou condicao");
+												let elementoLista = document.createElement("li");
+												elementoLista.classList.add("mdl-list__item");
+												let elementoConteudo = document.createElement("span");
+												elementoConteudo.classList.add("mdl-list__item-primary-content");
+												elementoConteudo.innerHTML = data.tarefas[tarefa]._titulo;
+												$(elementoLista).attr("id", "forno1_" + tarefa);
+												let elementoDetalhe = document.createElement("div");
+												elementoDetalhe.classList.add("mdl-tooltip");
+												$(elementoDetalhe).attr("for", "forno1_" + tarefa);
+												elementoDetalhe.innerHTML = data.tarefas[tarefa]._descricao;
+												$(".afazeres:eq(0) ul").append(elementoDetalhe);
+												$(elementoLista).append(elementoConteudo);
+												$(".afazeres:eq(0) ul").append(elementoLista);
+											}
+										}
+										else if($("#forno2").hasClass("selecionado")){
+											if (data.tarefas[tarefa]._forno == "2") {
+												//console.log("entrou condicao");
+												let elementoLista = document.createElement("li");
+												elementoLista.classList.add("mdl-list__item");
+												let elementoConteudo = document.createElement("span");
+												elementoConteudo.classList.add("mdl-list__item-primary-content");
+												elementoConteudo.innerHTML = data.tarefas[tarefa]._titulo;
+												$(elementoLista).attr("id", "forno2_" + tarefa);
+												let elementoDetalhe = document.createElement("div");
+												elementoDetalhe.classList.add("mdl-tooltip");
+												$(elementoDetalhe).attr("for", "forno2_" + tarefa);
+												elementoDetalhe.innerHTML = data.tarefas[tarefa]._descricao;
+												$(".afazeres:eq(1) ul").append(elementoDetalhe);
+												$(elementoLista).append(elementoConteudo);
+												$(".afazeres:eq(1) ul").append(elementoLista);
+												
+											}
+										}
+										else if($("#forno3").hasClass("selecionado")){
+											if (data.tarefas[tarefa]._forno == "3") {
+												//console.log("entrou condicao");
+												let elementoLista = document.createElement("li");
+												elementoLista.classList.add("mdl-list__item");
+												let elementoConteudo = document.createElement("span");
+												elementoConteudo.classList.add("mdl-list__item-primary-content");
+												elementoConteudo.innerHTML = data.tarefas[tarefa]._titulo;
+												$(elementoLista).attr("id", "forno3_" + tarefa);
+												let elementoDetalhe = document.createElement("div");
+												elementoDetalhe.classList.add("mdl-tooltip");
+												$(elementoDetalhe).attr("for", "forno3_" + tarefa);
+												elementoDetalhe.innerHTML = data.tarefas[tarefa]._descricao;
+												$(".afazeres:eq(2) ul").append(elementoDetalhe);
+												$(elementoLista).append(elementoConteudo);
+												$(".afazeres:eq(2) ul").append(elementoLista);
+											}
+										}
+										else if($("#forno4").hasClass("selecionado")){
+											if (data.tarefas[tarefa]._forno == "4") {
+												//console.log("entrou condicao");
+												let elementoLista = document.createElement("li");
+												elementoLista.classList.add("mdl-list__item");
+												let elementoConteudo = document.createElement("span");
+												elementoConteudo.classList.add("mdl-list__item-primary-content");
+												elementoConteudo.innerHTML = data.tarefas[tarefa]._titulo;
+												$(elementoLista).attr("id", "forno4_" + tarefa);
+												let elementoDetalhe = document.createElement("div");
+												elementoDetalhe.classList.add("mdl-tooltip");
+												$(elementoDetalhe).attr("for", "forno4_" + tarefa);
+												elementoDetalhe.innerHTML = data.tarefas[tarefa]._descricao;
+												$(".afazeres:eq(3) ul").append(elementoDetalhe);
+												$(elementoLista).append(elementoConteudo);
+												$(".afazeres:eq(3) ul").append(elementoLista);
+											}
+										}
+									}
+								});
+								$(".fornos").fadeOut("fast",function(){
+									if($("#forno1").hasClass("selecionado")){
+										$(".furnace-functions").hide();
+										$("#furnace-1-functions").show();
+										$("#chartContainer1").hide();
+										$("#usuario_f1").show();
+										$("#furnace-1-action-button").show();
+									}
+									if($("#forno2").hasClass("selecionado")){
+										$(".furnace-functions").hide();
+										$("#furnace-2-functions").show();
+										$("#forno2").removeClass("mdl-cell--1-offset-desktop");
+									}
+									if($("#forno3").hasClass("selecionado")){
+										$(".furnace-functions").hide();
+										$("#furnace-3-functions").show();
+										$("#forno3").removeClass("mdl-cell--1-offset-desktop");
+									}
+									if($("#forno4").hasClass("selecionado")){
+										$(".furnace-functions").hide();
+										$("#furnace-4-functions").show();
+										$("#forno4").removeClass("mdl-cell--1-offset-desktop");
+									}
+									
+								});
+								$(".fornos.selecionado").fadeIn("slow",function(){
+									$("#voltarForno").show();
+								});
+							});
+							$("#voltarForno").on("click",function(){
+								$(".fornos.selecionado").removeClass("selecionado");
+								$(".furnace-functions").hide();
+								$(".fornos").hide();
+								$(".fornos").show();
+								$(".fornos").addClass("mdl-cell--1-offset-desktop");
+								$(".fornos:eq(0)").removeClass("mdl-cell--1-offset-desktop");
+								$("#voltarForno").hide();
+								$("#furnace-1-action-button").hide();
+								$("#usuario_f1").hide();
+								$("#chartContainer1").show();
+							});
+						});
+					</script>
 				</div>
 			</div>
 		</div>
-
+	</div>
+</div>
 	</body>
 </html>
