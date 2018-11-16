@@ -131,6 +131,9 @@ body {
 	#forno1{
 		height:150px;
 	}
+	.card-toggler{
+		margin-left:-2%;
+	}
 }
 @media screen and (min-width:720px){
 	.afazeres{

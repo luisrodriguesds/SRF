@@ -492,7 +492,7 @@
 						<!-- here we put all cards that are functions of the furnace -->
 
 							<!-- Energy Card -->
-						<div class="card-toggler mdl-card mdl-shadow--6dp mdl-cell mdl-cell--3-col-desktop" style="margin-right: 3.5%;">
+						<div class="card-toggler mdl-card mdl-shadow--6dp mdl-cell mdl-cell--3-col-desktop mdl-cell--2-col-phone" style="margin-right: 3.5%;">
 							<div class="content">
 								<div class="mdl-card__title">
 									<h3> Energia </h3>
@@ -525,7 +525,7 @@
 						</div>
 						
 							<!-- Motor Card -->
-						<div class="card-toggler mdl-card mdl-shadow--6dp mdl-cell mdl-cell--3-col-desktop">
+						<div class="card-toggler mdl-card mdl-shadow--6dp mdl-cell mdl-cell--3-col-desktop mdl-cell--2-col-phone">
 							<!-- <div class="mdl-card__media">
 								<img src="images/motor.jpg">
 							</div> -->
@@ -793,6 +793,9 @@
 					<!-- <p>Início da gravação: <span id="analysis_begin_time"><%- locals.dataset.begin_time %></span></p> -->
 					<script>
 						$("document").ready(function(){
+							if($(window).width()<=600){
+								$(".oven_available").hide();
+							}
 							$(".furnace-functions").hide();
 							$("#voltarForno").hide();
 							$('#furnace-1-action-button').hide();
@@ -886,7 +889,13 @@
 									if($("#forno1").hasClass("selecionado")){
 										$(".furnace-functions").hide();
 										$("#furnace-1-functions").show();
-										$("#chartContainer1").hide();
+										if($(window).width()<=600){
+											$("#chartContainer1-2").hide();
+										}
+										else{
+											$("#chartContainer1").hide();
+											$("#chartContainer1-2").show();
+										}
 										$("#usuario_f1").show();
 										$("#furnace-1-action-button").show();
 									}
