@@ -580,7 +580,7 @@
 						<!-- here we put all cards that are functions of the furnace -->
 
 							<!-- Energy Card -->
-						<div class="card-toggler mdl-card mdl-shadow--6dp mdl-cell mdl-cell--3-col-desktop" style="margin-right: 3.5%;">
+						<div class="card-toggler mdl-card mdl-shadow--6dp mdl-cell mdl-cell--2-col-desktop">
 							<div class="content">
 								<div class="mdl-card__title">
 									<h3> Energia </h3>
@@ -604,7 +604,7 @@
 						</div>
 						
 							<!-- Motor Card -->
-						<div class="card-toggler mdl-card mdl-shadow--6dp mdl-cell mdl-cell--3-col-desktop ">
+						<div class="card-toggler mdl-card mdl-shadow--6dp mdl-cell mdl-cell--2-col-desktop ">
 							<!-- <div class="mdl-card__media">
 								<img src="images/motor.jpg">
 							</div> -->
@@ -627,6 +627,28 @@
 									</script>
 								</div>
 							</div>
+						</div>
+						<div class="card-toggler mdl-card mdl-shadow--6dp mdl-cell mdl-cell--2-col-desktop" style="margin-right: 3.5%;">
+							<div class="content">
+								<div class="mdl-card__title">
+									<h3> Resf. </h3>
+								</div>
+
+								<div class="mdl-card__actions mdl-card--border" >
+									<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2-3">
+									  <input type="checkbox" id="switch-2-3" class="mdl-switch__input" disabled>
+									  <span class="mdl-switch__label" id="switch-2-3-state"> Indisponivel </span>
+									</label>
+
+									<script type="text/javascript">
+										$("document").ready( function() {
+											
+										});
+									</script>
+
+								</div>
+							</div>
+							
 						</div>
 							<!-- The temperature chart runs in this DIV. All changes are made in chartViwer.js script.
 								Div name is a target for the script for draw the char.
@@ -818,12 +840,8 @@
 												let elementoConteudo = document.createElement("span");
 												elementoConteudo.classList.add("mdl-list__item-primary-content");
 												elementoConteudo.innerHTML = data.tarefas[tarefa]._titulo;
-												$(elementoLista).attr("id", "forno1_" + tarefa);
-												let elementoDetalhe = document.createElement("div");
-												elementoDetalhe.classList.add("mdl-tooltip");
-												$(elementoDetalhe).attr("for", "forno1_" + tarefa);
-												elementoDetalhe.innerHTML = data.tarefas[tarefa]._descricao;
-												$(".afazeres:eq(0) ul").append(elementoDetalhe);
+												$(elementoConteudo).attr("id", "forno1_" + tarefa);
+												$(elementoConteudo).attr("title",data.tarefas[tarefa]._descricao);
 												$(elementoLista).append(elementoConteudo);
 												$(".afazeres:eq(0) ul").append(elementoLista);
 											}
@@ -837,11 +855,7 @@
 												elementoConteudo.classList.add("mdl-list__item-primary-content");
 												elementoConteudo.innerHTML = data.tarefas[tarefa]._titulo;
 												$(elementoLista).attr("id", "forno2_" + tarefa);
-												let elementoDetalhe = document.createElement("div");
-												elementoDetalhe.classList.add("mdl-tooltip");
-												$(elementoDetalhe).attr("for", "forno2_" + tarefa);
-												elementoDetalhe.innerHTML = data.tarefas[tarefa]._descricao;
-												$(".afazeres:eq(1) ul").append(elementoDetalhe);
+												$(elementoConteudo).attr("title",data.tarefas[tarefa]._descricao);
 												$(elementoLista).append(elementoConteudo);
 												$(".afazeres:eq(1) ul").append(elementoLista);
 												
@@ -856,11 +870,7 @@
 												elementoConteudo.classList.add("mdl-list__item-primary-content");
 												elementoConteudo.innerHTML = data.tarefas[tarefa]._titulo;
 												$(elementoLista).attr("id", "forno3_" + tarefa);
-												let elementoDetalhe = document.createElement("div");
-												elementoDetalhe.classList.add("mdl-tooltip");
-												$(elementoDetalhe).attr("for", "forno3_" + tarefa);
-												elementoDetalhe.innerHTML = data.tarefas[tarefa]._descricao;
-												$(".afazeres:eq(2) ul").append(elementoDetalhe);
+												$(elementoConteudo).attr("title",data.tarefas[tarefa]._descricao);
 												$(elementoLista).append(elementoConteudo);
 												$(".afazeres:eq(2) ul").append(elementoLista);
 											}
@@ -874,11 +884,7 @@
 												elementoConteudo.classList.add("mdl-list__item-primary-content");
 												elementoConteudo.innerHTML = data.tarefas[tarefa]._titulo;
 												$(elementoLista).attr("id", "forno4_" + tarefa);
-												let elementoDetalhe = document.createElement("div");
-												elementoDetalhe.classList.add("mdl-tooltip");
-												$(elementoDetalhe).attr("for", "forno4_" + tarefa);
-												elementoDetalhe.innerHTML = data.tarefas[tarefa]._descricao;
-												$(".afazeres:eq(3) ul").append(elementoDetalhe);
+												$(elementoConteudo).attr("title",data.tarefas[tarefa]._descricao);
 												$(elementoLista).append(elementoConteudo);
 												$(".afazeres:eq(3) ul").append(elementoLista);
 											}
