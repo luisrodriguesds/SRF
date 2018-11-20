@@ -55,7 +55,8 @@ router.post('/novaTarefa',function(req,res){
         "_forno" : forno,
         "_titulo" : titulo,
         "_descricao" : descricao,
-        "_data" : data
+        "_data" : data,
+        "_status" : "0"
     }
     logTarefas.insert(novaTarefa, function(err,r){
         if(!err){
@@ -64,6 +65,22 @@ router.post('/novaTarefa',function(req,res){
         else{
             res.send("erro!");
             return;
+        }
+    });
+});
+
+router.post('/excluirTarefa', function(req,res){
+    console.log("testeExclusao");
+    console.log(req.body.id);
+    let id = req.body.id;
+    var db = req.db;
+    var logTarefas = db.get('tarefasLog');
+    logTarefas.remove({_id: id}, function(err , r){
+        if(!err){
+            res.send("Deu certo!");
+        }
+        else{
+            res.send("Erro!");
         }
     });
 });

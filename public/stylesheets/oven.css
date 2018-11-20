@@ -196,3 +196,9 @@ body {
 	transform:scale(1.2);
 }
 
+.elementoStatus{
+	margin-left:10px;
+	border-radius:360px;
+	width:20px;
+	height:20px;
+}

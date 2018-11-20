@@ -840,7 +840,19 @@
 												let elementoConteudo = document.createElement("span");
 												elementoConteudo.classList.add("mdl-list__item-primary-content");
 												elementoConteudo.innerHTML = data.tarefas[tarefa]._titulo;
+												let elementoStatus = document.createElement("div");
+												elementoStatus.classList.add("elementoStatus");
+												if(data.tarefas[tarefa]._status == 0){
+													$(elementoStatus).css("background-color","red");
+												}
+												else if(data.tarefas[tarefa]._status == 1){
+													$(elementoStatus).css("background-color","yellow");
+												}
+												else if(data.tarefas[tarefa]._status == 2){
+													$(elementoStatus).css("background-color","green");
+												}
 												$(elementoConteudo).attr("id", "forno1_" + tarefa);
+												$(elementoConteudo).append(elementoStatus);
 												$(elementoConteudo).attr("title",data.tarefas[tarefa]._descricao);
 												$(elementoLista).append(elementoConteudo);
 												$(".afazeres:eq(0) ul").append(elementoLista);

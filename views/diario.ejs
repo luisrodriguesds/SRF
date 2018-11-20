@@ -5,7 +5,8 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.deep_orange-deep_purple.min.css" />
 		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,500,400italic,700,700italic' rel='stylesheet' type='text/css'> 
-		<title>Fornos LRX - Login</title>
+        <link rel="stylesheet" href="/stylesheets/diario.css">
+        <title>Fornos LRX - Diario</title>
     </head>
 
     <body>
@@ -58,17 +59,26 @@
                         <a href="#forno4-panel" class="mdl-tabs__tab">Forno4</a>
                     </div>
                     <div class="mdl-tabs__panel is-active  mdl-cell--8-col-desktop mdl-cell--2-offset-desktop" id="forno1-panel">
-                        <div class="mdl-layout__content">
+                        <div class="mdl-layout__content mdl-grid">
                             <ul style="list-style:none">
                                 <br><br>
                                 <% for(let i=0; i<tarefas.length; i++){%>
                                     <% if(tarefas[i]._forno =="1"){%>
                                         <li>
+                                            
                                             <div class="mdl-card mdl-cell--12-col-desktop mdl-cell--middle" style="background-color:#f7f2f2;"> 
+                                                <span class="tarefas_id" hidden><%- tarefas[i]._id %></span>
                                                 <div class="mdl-card__title mdl-cell--middle"><span class="mdl-card__title-text"><%- tarefas[i]._titulo %></span></div>
                                                 <span class="mdl-cell--middle"><b>Data:</b><%- tarefas[i]._data %></span>
                                                 <div class="mdl-card__supporting-text mdl-cell--12-col-desktop">
                                                         <%- tarefas[i]._descricao %>
+                                                </div>
+                                                <div class="mdl-card__menu">
+                                                        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect excluirTarefa"><i class="material-icons">delete_sweep</i></button>
+                                                </div>
+                                                <div class="mdl_card__actions mdl-card--border mdl-cell--middle">
+                                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored fazerTarefa"><i class="material-icons">assignment</i></button>
+                                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored concluirTarefa"><i class="material-icons">assignment_turned_in</i></button>
                                                 </div>
                                             </div>
                                         </li>
@@ -78,7 +88,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="mdl-tabs__panel  mdl-cell--8-col-desktop mdl-cell--2-offset-desktop" id="forno2-panel">
+                    <div class="mdl-tabs__panel  mdl-cell--8-col-desktop mdl-cell--2-offset-desktop mdl-grid" id="forno2-panel">
                         <div class="mdl-layout__content">
                             <ul style="list-style:none">
                                 <br><br>
@@ -86,10 +96,18 @@
                                     <% if(tarefas[i]._forno =="2"){%>
                                         <li>
                                             <div class="mdl-card mdl-cell--12-col-desktop mdl-cell--middle" style="background-color:#f7f2f2;"> 
+                                                <span class="tarefas_id" hidden><%- tarefas[i]._id %></span>
                                                 <div class="mdl-card__title mdl-cell--middle"><span class="mdl-card__title-text"><%- tarefas[i]._titulo %></span></div>
                                                 <span class="mdl-cell--middle"><b>Data:</b><%- tarefas[i]._data %></span>
                                                 <div class="mdl-card__supporting-text mdl-cell--12-col-desktop">
                                                         <%- tarefas[i]._descricao %>
+                                                </div>
+                                                <div class="mdl-card__menu">
+                                                        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect excluirTarefa"><i class="material-icons">delete_sweep</i></button>
+                                                </div>
+                                                <div class="mdl_card__actions mdl-card--border mdl-cell--middle">
+                                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored fazerTarefa"><i class="material-icons">assignment</i></button>
+                                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored concluirTarefa"><i class="material-icons">assignment_turned_in</i></button>
                                                 </div>
                                             </div>
                                         </li>
@@ -99,7 +117,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="mdl-tabs__panel  mdl-cell--8-col-desktop mdl-cell--2-offset-desktop" id="forno3-panel">
+                    <div class="mdl-tabs__panel  mdl-cell--8-col-desktop mdl-cell--2-offset-desktop mdl-grid" id="forno3-panel">
                         <div class="mdl-layout__content">
                             <ul style="list-style:none">
                                 <br><br>
@@ -107,10 +125,18 @@
                                     <% if(tarefas[i]._forno =="3"){%>
                                     <li>
                                         <div class="mdl-card mdl-cell--12-col-desktop mdl-cell--middle" style="background-color:#f7f2f2;"> 
+                                            <span class="tarefas_id" hidden><%- tarefas[i]._id %></span>
                                             <div class="mdl-card__title mdl-cell--middle"><span class="mdl-card__title-text"><%- tarefas[i]._titulo %></span></div>
                                             <span class="mdl-cell--middle"><b>Data:</b><%- tarefas[i]._data %></span>
                                             <div class="mdl-card__supporting-text mdl-cell--12-col-desktop">
                                                     <%- tarefas[i]._descricao %>
+                                            </div>
+                                            <div class="mdl-card__menu">
+                                                    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect excluirTarefa"><i class="material-icons">delete_sweep</i></button>
+                                            </div>
+                                            <div class="mdl_card__actions mdl-card--border mdl-cell--middle">
+                                                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored fazerTarefa"><i class="material-icons">assignment</i></button>
+                                                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored concluirTarefa"><i class="material-icons">assignment_turned_in</i></button>
                                             </div>
                                         </div>
                                     </li>
@@ -120,7 +146,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="mdl-tabs__panel  mdl-cell--8-col-desktop mdl-cell--2-offset-desktop" id="forno4-panel">
+                    <div class="mdl-tabs__panel  mdl-cell--8-col-desktop mdl-cell--2-offset-desktop mdl-grid" id="forno4-panel">
                         <div class="mdl-layout__content">
                             <ul style="list-style:none">
                                 <br><br>
@@ -128,10 +154,18 @@
                                     <% if(tarefas[i]._forno =="4"){%>
                                         <li>
                                             <div class="mdl-card mdl-cell--12-col-desktop mdl-cell--middle" style="background-color:#f7f2f2;"> 
+                                                <span class="tarefas_id" hidden><%- tarefas[i]._id %></span>
                                                 <div class="mdl-card__title mdl-cell--middle"><span class="mdl-card__title-text"><%- tarefas[i]._titulo %></span></div>
                                                 <span class="mdl-cell--middle"><b>Data:</b><%- tarefas[i]._data %></span>
                                                 <div class="mdl-card__supporting-text mdl-cell--12-col-desktop">
                                                         <%- tarefas[i]._descricao %>
+                                                </div>
+                                                <div class="mdl-card__menu">
+                                                        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect excluirTarefa"><i class="material-icons">delete_sweep</i></button>
+                                                </div>
+                                                <div class="mdl_card__actions mdl-card--border mdl-cell--middle">
+                                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored fazerTarefa"><i class="material-icons">assignment</i></button>
+                                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored concluirTarefa"><i class="material-icons">assignment_turned_in</i></button>
                                                 </div>
                                             </div>
                                         </li>
@@ -191,7 +225,6 @@
 
       <script>
         $("document").ready( function(){
-
             $("#novaTarefa").submit(function(evento){
                 event.preventDefault();
                 var dados = {nome: $("#Nome").val(), titulo: $("#Titulo").val(), descricao: $("#descricao").val(), fornos:$("#forno").val()};
@@ -205,6 +238,20 @@
                 $("#caixaConfirmacao").hide();
                 location.reload();
             }
+
+            $(".excluirTarefa").on("click", function(){
+                if(confirm("Voce deseja excluir a tarefa?")){
+                    event.preventDefault();
+                    console.log($(this).parent().parent().children(".tarefas_id").html());
+                    let id = $(this).parent().parent().children(".tarefas_id").html();
+                    var dados = {id:id};
+                    $.post("/diario/excluirTarefa", dados, function (data){
+                        location.reload();
+                    });
+
+                }
+                
+            });
         });
       </script>
     </body>

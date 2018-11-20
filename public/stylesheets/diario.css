@@ -1,0 +1,7 @@
+.fazerTarefa{
+    filter: hue-rotate(110deg);
+}
+
+.concluirTarefa{
+    filter: hue-rotate(180deg);
+}
