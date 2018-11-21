@@ -84,6 +84,73 @@ router.post('/excluirTarefa', function(req,res){
         }
     });
 });
+router.post('/fazerTarefa', function(req,res){
+    console.log("testeStatus");
 
+    let id = req.body.id;
+    var db = req.db;
+    console.log(id);
+    var logTarefas = db.get('tarefasLog');
+    logTarefas.find({_id: id}, {sort: {id:-1}}, function(err, tarefas){
+        console.log("entrou");
+        console.log(err);
+        if(!err){
+            if(tarefas[0]._status<1){
+                let tarefaCorrente = {
+                    "_nomeUsuario" : tarefas[0]._nomeUsuario,
+                    "_forno" : tarefas[0]._forno,
+                    "_titulo" : tarefas[0]._titulo,
+                    "_descricao" : tarefas[0]._descricao,
+                    "_data" : tarefas[0]._data,
+                    "_status" : "1"
+                }
+                logTarefas.update({_id: id},tarefaCorrente, function(){
+                    res.send("Deu certo!");
+                });
+            }
+            else{
+                res.send("A tarefa já está com esse status");
+            }
+        }
+        else{
+            res.send("erro");
+        }
+        
+    });
+});
+
+router.post('/concluirTarefa', function(req,res){
+    console.log("testeStatus");
+    let id = req.body.id;
+    var db = req.db;
+    console.log(id);
+    var logTarefas = db.get('tarefasLog');
+    logTarefas.find({_id: id}, {sort: {id:-1}}, function(err, tarefas){
+        console.log("entrou");
+        console.log(err);
+        if(!err){
+            if(tarefas[0]._status<2){
+                let tarefaCorrente = {
+                    "_nomeUsuario" : tarefas[0]._nomeUsuario,
+                    "_forno" : tarefas[0]._forno,
+                    "_titulo" : tarefas[0]._titulo,
+                    "_descricao" : tarefas[0]._descricao,
+                    "_data" : tarefas[0]._data,
+                    "_status" : "2"
+                }
+                logTarefas.update({_id: id},tarefaCorrente, function(){
+                    res.send("Deu certo!");
+                });
+            }
+            else{
+                res.send("A tarefa já está com esse status");
+            }
+        }
+        else{
+            res.send("erro");
+        }
+        
+    });
+});
 
 module.exports = router;

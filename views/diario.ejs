@@ -74,11 +74,11 @@
                                                         <%- tarefas[i]._descricao %>
                                                 </div>
                                                 <div class="mdl-card__menu">
-                                                        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect excluirTarefa"><i class="material-icons">delete_sweep</i></button>
+                                                        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect excluirTarefa" title="Apagar"><i class="material-icons">delete_sweep</i></button>
                                                 </div>
                                                 <div class="mdl_card__actions mdl-card--border mdl-cell--middle">
-                                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored fazerTarefa"><i class="material-icons">assignment</i></button>
-                                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored concluirTarefa"><i class="material-icons">assignment_turned_in</i></button>
+                                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored fazerTarefa" title="Tarefa está em andamento"><i class="material-icons">assignment</i></button>
+                                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored concluirTarefa" title="Tarefa foi concluída"><i class="material-icons">assignment_turned_in</i></button>   
                                                 </div>
                                             </div>
                                         </li>
@@ -103,11 +103,11 @@
                                                         <%- tarefas[i]._descricao %>
                                                 </div>
                                                 <div class="mdl-card__menu">
-                                                        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect excluirTarefa"><i class="material-icons">delete_sweep</i></button>
+                                                        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect excluirTarefa" title="Apagar"><i class="material-icons">delete_sweep</i></button>
                                                 </div>
                                                 <div class="mdl_card__actions mdl-card--border mdl-cell--middle">
-                                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored fazerTarefa"><i class="material-icons">assignment</i></button>
-                                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored concluirTarefa"><i class="material-icons">assignment_turned_in</i></button>
+                                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored fazerTarefa" title="Tarefa está em andamento"><i class="material-icons">assignment</i></button>
+                                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored concluirTarefa" title="Tarefa foi concluída"><i class="material-icons">assignment_turned_in</i></button>   
                                                 </div>
                                             </div>
                                         </li>
@@ -132,11 +132,11 @@
                                                     <%- tarefas[i]._descricao %>
                                             </div>
                                             <div class="mdl-card__menu">
-                                                    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect excluirTarefa"><i class="material-icons">delete_sweep</i></button>
+                                                    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect excluirTarefa" title="Apagar"><i class="material-icons">delete_sweep</i></button>
                                             </div>
                                             <div class="mdl_card__actions mdl-card--border mdl-cell--middle">
-                                                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored fazerTarefa"><i class="material-icons">assignment</i></button>
-                                                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored concluirTarefa"><i class="material-icons">assignment_turned_in</i></button>
+                                                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored fazerTarefa" title="Tarefa está em andamento"><i class="material-icons">assignment</i></button>
+                                                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored concluirTarefa" title="Tarefa foi concluída"><i class="material-icons">assignment_turned_in</i></button>   
                                             </div>
                                         </div>
                                     </li>
@@ -161,11 +161,11 @@
                                                         <%- tarefas[i]._descricao %>
                                                 </div>
                                                 <div class="mdl-card__menu">
-                                                        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect excluirTarefa"><i class="material-icons">delete_sweep</i></button>
+                                                        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect excluirTarefa" title="Apagar"><i class="material-icons">delete_sweep</i></button>
                                                 </div>
                                                 <div class="mdl_card__actions mdl-card--border mdl-cell--middle">
-                                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored fazerTarefa"><i class="material-icons">assignment</i></button>
-                                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored concluirTarefa"><i class="material-icons">assignment_turned_in</i></button>
+                                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored fazerTarefa" title="Tarefa está em andamento"><i class="material-icons">assignment</i></button>
+                                                        <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored concluirTarefa" title="Tarefa foi concluída"><i class="material-icons">assignment_turned_in</i></button>   
                                                 </div>
                                             </div>
                                         </li>
@@ -251,6 +251,26 @@
 
                 }
                 
+            });
+
+            $(".fazerTarefa").on("click", function(){
+
+                event.preventDefault();
+                let id = $(this).parent().parent().children(".tarefas_id").html();
+                var dados = {id:id};
+
+                $.post("/diario/fazerTarefa", dados, function(data){
+                    location.reload();
+                });
+            });
+
+            $(".concluirTarefa").on("click", function(){
+                event.preventDefault();
+                let id = $(this).parent().parent().children(".tarefas_id").html();
+                var dados = {id:id};
+                $.post("/diario/concluirTarefa", dados, function(data){
+                    location.reload();
+                });
             });
         });
       </script>

@@ -355,6 +355,9 @@
 							<a id="furnace-1-action-button" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
 								Gravar Leituras
 							</a>
+							<a id="furnace-1-documentation" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+								Documentação
+							</a>
 							<div id="chartContainer1" class="chart-card mdl-card mdl-shadow--2dp mdl-cell--12-col-desktop mdl-cell--4-col-phone"></div>
 						</div>
 						
@@ -563,7 +566,13 @@
 							 -->
 						<div id="chartContainer1-2" class="chart-card mdl-card mdl-shadow--2dp mdl-cell--7-col-desktop mdl-cell--12-col-phone" style="float:right;"></div>
 						<div class="afazeres mdl-card mdl-cell--1-offset-desktop mdl-cell--3-desktop">
-								<div class="mdl-card__title"><h3>Lista de Afazeres</h3></div>
+								<div class="mdl-card__title">
+									<h3 class="mdl-card__title-text">Lista de Afazeres</h3>
+								</div>
+								<div class="situacao" id="situacaoF1">
+									<span class="descricaoSituacao"><b>Situacao:</b> teste de mensagem de highlight</span>
+									<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab editarSituacao"><i class="material-icons">border_color</i></button>
+								</div>
 								<div class="mdl-card__supporting-text">
 									<ul class="mdl-list">
 										<li class="mdl-list__item">
@@ -821,6 +830,7 @@
 							$(".furnace-functions").hide();
 							$("#voltarForno").hide();
 							$('#furnace-1-action-button').hide();
+							$("#furnace-1-documentation").hide();
 							$("#usuario_f1").hide();
 							$(".fornos").on("click", function(){
 								$(this).addClass("selecionado");
@@ -840,16 +850,20 @@
 												let elementoConteudo = document.createElement("span");
 												elementoConteudo.classList.add("mdl-list__item-primary-content");
 												elementoConteudo.innerHTML = data.tarefas[tarefa]._titulo;
-												let elementoStatus = document.createElement("div");
+												let elementoStatus = document.createElement("i");
 												elementoStatus.classList.add("elementoStatus");
+												elementoStatus.classList.add("material-icons");
 												if(data.tarefas[tarefa]._status == 0){
-													$(elementoStatus).css("background-color","red");
+													$(elementoStatus).css("color","#f44242");
+													$(elementoStatus).text("assignment_late");
 												}
 												else if(data.tarefas[tarefa]._status == 1){
-													$(elementoStatus).css("background-color","yellow");
+													$(elementoStatus).css("color","#f4ac41");
+													$(elementoStatus).text("assignment");
 												}
 												else if(data.tarefas[tarefa]._status == 2){
-													$(elementoStatus).css("background-color","green");
+													$(elementoStatus).css("color","green");
+													$(elementoStatus).text("assignment_turned_in");
 												}
 												$(elementoConteudo).attr("id", "forno1_" + tarefa);
 												$(elementoConteudo).append(elementoStatus);
@@ -916,6 +930,7 @@
 										}
 										$("#usuario_f1").show();
 										$("#furnace-1-action-button").show();
+										$("#furnace-1-documentation").show();
 									}
 									if($("#forno2").hasClass("selecionado")){
 										$(".furnace-functions").hide();
@@ -947,6 +962,7 @@
 								$(".fornos:eq(0)").removeClass("mdl-cell--1-offset-desktop");
 								$("#voltarForno").hide();
 								$("#furnace-1-action-button").hide();
+								$("#furnace-1-documentation").hide();
 								$("#usuario_f1").hide();
 								$("#chartContainer1").show();
 							});
