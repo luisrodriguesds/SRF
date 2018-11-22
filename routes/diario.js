@@ -153,4 +153,33 @@ router.post('/concluirTarefa', function(req,res){
     });
 });
 
+router.post('/obterDescricao', function(req,res){
+    var db = req.db;
+    let forno = parseInt(req.body.forno);
+    console.log(forno);
+    let descricaoSF = db.get('statusFornos');
+    // console.log(descricaoSF);
+    descricaoSF.find({_forno:forno}, function(err, descricaoF){
+        if(!err){
+            console.log(descricaoF);
+            res.send({message:'no_msg', descricaoF:descricaoF});
+        }
+    });
+});
+
+router.post('/mudarDescricao', function(req,res){
+    var db = req.db;
+    let forno = parseInt(req.body.forno);
+    let descricao = (req.body.descricao);
+    let descricaoSF = db.get('statusFornos');
+    let objetoAtualizado = 
+    {
+        "_forno":forno,
+        "_status": descricao
+    };
+    descricaoSF.update({_forno: forno},objetoAtualizado, function(){
+        res.send("atualizado");
+    });
+});
+
 module.exports = router;

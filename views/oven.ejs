@@ -570,14 +570,14 @@
 									<h3 class="mdl-card__title-text">Lista de Afazeres</h3>
 								</div>
 								<div class="situacao" id="situacaoF1">
-									<span class="descricaoSituacao"><b>Situacao:</b> teste de mensagem de highlight</span>
+									<b>Situacao:</b><span class="descricaoSituacao">teste de mensagem de highlight teste de mensagem de highlight teste de mensagem de highlight teste de mensagem de highlight</span>
 									<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab editarSituacao"><i class="material-icons">border_color</i></button>
 								</div>
 								<div class="mdl-card__supporting-text">
 									<ul class="mdl-list">
 										<li class="mdl-list__item">
 											<span class="mdl-list__item-primary-content">
-												
+												<!-- Preenchida dinamicamente por jquery -->
 											</span>
 										</li>
 	
@@ -665,6 +665,10 @@
 						<div id="chartContainer2-2" class="chart-card mdl-card mdl-shadow--2dp mdl-cell--7-col-desktop mdl-cell--12-col-phone" style="float:right;"></div>
 						<div class="afazeres mdl-card mdl-cell--1-offset-desktop mdl-cell--3-desktop">
 								<div class="mdl-card__title"><h3>Lista de Afazeres</h3></div>
+								<div class="situacao" id="situacaoF2">
+									<b>Situacao:</b><span class="descricaoSituacao">teste de mensagem de highlight teste de mensagem de highlight teste de mensagem de highlight teste de mensagem de highlight</span>
+									<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab editarSituacao"><i class="material-icons">border_color</i></button>
+								</div>
 								<div class="mdl-card__supporting-text">
 									<ul class="mdl-list">
 										<li class="mdl-list__item">
@@ -735,6 +739,10 @@
 						<div id="chartContainer3-2" class="chart-card mdl-card mdl-shadow--2dp mdl-cell--7-col-desktop mdl-cell--12-col-phone" style="float:right;"></div>
 						<div class="afazeres mdl-card mdl-cell--1-offset-desktop mdl-cell--3-desktop">
 								<div class="mdl-card__title"><h3>Lista de Afazeres</h3></div>
+								<div class="situacao" id="situacaoF3">
+									<b>Situacao:</b><span class="descricaoSituacao">teste de mensagem de highlight teste de mensagem de highlight teste de mensagem de highlight teste de mensagem de highlight</span>
+									<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab editarSituacao"><i class="material-icons">border_color</i></button>
+								</div>
 								<div class="mdl-card__supporting-text">
 									<ul class="mdl-list">
 										<li class="mdl-list__item">
@@ -805,6 +813,10 @@
 						<div id="chartContainer4-2" class="chart-card mdl-card mdl-shadow--2dp mdl-cell--7-col-desktop mdl-cell--12-col-phone" style="float:right;"></div>
 						<div class="afazeres mdl-card mdl-cell--1-offset-desktop mdl-cell--3-desktop">
 								<div class="mdl-card__title"><h3>Lista de Afazeres</h3></div>
+								<div class="situacao" id="situacaoF4">
+									<b>Situacao:</b><span class="descricaoSituacao">teste de mensagem de highlight teste de mensagem de highlight teste de mensagem de highlight teste de mensagem de highlight</span>
+									<button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab editarSituacao"><i class="material-icons">border_color</i></button>
+								</div>
 								<div class="mdl-card__supporting-text">
 									<ul class="mdl-list">
 										<li class="mdl-list__item">
@@ -870,6 +882,7 @@
 												$(elementoConteudo).attr("title",data.tarefas[tarefa]._descricao);
 												$(elementoLista).append(elementoConteudo);
 												$(".afazeres:eq(0) ul").append(elementoLista);
+												
 											}
 										}
 										else if($("#forno2").hasClass("selecionado")){
@@ -880,7 +893,23 @@
 												let elementoConteudo = document.createElement("span");
 												elementoConteudo.classList.add("mdl-list__item-primary-content");
 												elementoConteudo.innerHTML = data.tarefas[tarefa]._titulo;
+												let elementoStatus = document.createElement("i");
+												elementoStatus.classList.add("elementoStatus");
+												elementoStatus.classList.add("material-icons");
+												if(data.tarefas[tarefa]._status == 0){
+													$(elementoStatus).css("color","#f44242");
+													$(elementoStatus).text("assignment_late");
+												}
+												else if(data.tarefas[tarefa]._status == 1){
+													$(elementoStatus).css("color","#f4ac41");
+													$(elementoStatus).text("assignment");
+												}
+												else if(data.tarefas[tarefa]._status == 2){
+													$(elementoStatus).css("color","green");
+													$(elementoStatus).text("assignment_turned_in");
+												}
 												$(elementoLista).attr("id", "forno2_" + tarefa);
+												$(elementoConteudo).append(elementoStatus);
 												$(elementoConteudo).attr("title",data.tarefas[tarefa]._descricao);
 												$(elementoLista).append(elementoConteudo);
 												$(".afazeres:eq(1) ul").append(elementoLista);
@@ -895,7 +924,23 @@
 												let elementoConteudo = document.createElement("span");
 												elementoConteudo.classList.add("mdl-list__item-primary-content");
 												elementoConteudo.innerHTML = data.tarefas[tarefa]._titulo;
+												let elementoStatus = document.createElement("i");
+												elementoStatus.classList.add("elementoStatus");
+												elementoStatus.classList.add("material-icons");
+												if(data.tarefas[tarefa]._status == 0){
+													$(elementoStatus).css("color","#f44242");
+													$(elementoStatus).text("assignment_late");
+												}
+												else if(data.tarefas[tarefa]._status == 1){
+													$(elementoStatus).css("color","#f4ac41");
+													$(elementoStatus).text("assignment");
+												}
+												else if(data.tarefas[tarefa]._status == 2){
+													$(elementoStatus).css("color","green");
+													$(elementoStatus).text("assignment_turned_in");
+												}
 												$(elementoLista).attr("id", "forno3_" + tarefa);
+												$(elementoConteudo).append(elementoStatus);
 												$(elementoConteudo).attr("title",data.tarefas[tarefa]._descricao);
 												$(elementoLista).append(elementoConteudo);
 												$(".afazeres:eq(2) ul").append(elementoLista);
@@ -909,17 +954,39 @@
 												let elementoConteudo = document.createElement("span");
 												elementoConteudo.classList.add("mdl-list__item-primary-content");
 												elementoConteudo.innerHTML = data.tarefas[tarefa]._titulo;
+												let elementoStatus = document.createElement("i");
+												elementoStatus.classList.add("elementoStatus");
+												elementoStatus.classList.add("material-icons");
+												if(data.tarefas[tarefa]._status == 0){
+													$(elementoStatus).css("color","#f44242");
+													$(elementoStatus).text("assignment_late");
+												}
+												else if(data.tarefas[tarefa]._status == 1){
+													$(elementoStatus).css("color","#f4ac41");
+													$(elementoStatus).text("assignment");
+												}
+												else if(data.tarefas[tarefa]._status == 2){
+													$(elementoStatus).css("color","green");
+													$(elementoStatus).text("assignment_turned_in");
+												}
 												$(elementoLista).attr("id", "forno4_" + tarefa);
+												$(elementoConteudo).append(elementoStatus);
 												$(elementoConteudo).attr("title",data.tarefas[tarefa]._descricao);
 												$(elementoLista).append(elementoConteudo);
 												$(".afazeres:eq(3) ul").append(elementoLista);
 											}
 										}
 									}
+
 								});
 								$(".fornos").fadeOut("fast",function(){
 									if($("#forno1").hasClass("selecionado")){
 										$(".furnace-functions").hide();
+										let tipo = {forno:1};
+										$.post('/diario/obterDescricao',tipo, function(d){
+											console.log(d);
+											$(".descricaoSituacao:eq(0)").text(d.descricaoF[0]._status);
+										});
 										$("#furnace-1-functions").show();
 										if($(window).width()<=600){
 											$("#chartContainer1-2").hide();
@@ -931,18 +998,34 @@
 										$("#usuario_f1").show();
 										$("#furnace-1-action-button").show();
 										$("#furnace-1-documentation").show();
+										
 									}
 									if($("#forno2").hasClass("selecionado")){
+										let tipo = {forno:2};
+										$.post('/diario/obterDescricao',tipo, function(d){
+											console.log(d);
+											$(".descricaoSituacao:eq(1)").text(d.descricaoF[0]._status);
+										});
 										$(".furnace-functions").hide();
 										$("#furnace-2-functions").show();
 										$("#forno2").removeClass("mdl-cell--1-offset-desktop");
 									}
 									if($("#forno3").hasClass("selecionado")){
+										let tipo = {forno:3};
+										$.post('/diario/obterDescricao',tipo, function(d){
+											console.log(d);
+											$(".descricaoSituacao:eq(2)").text(d.descricaoF[0]._status);
+										});
 										$(".furnace-functions").hide();
 										$("#furnace-3-functions").show();
 										$("#forno3").removeClass("mdl-cell--1-offset-desktop");
 									}
 									if($("#forno4").hasClass("selecionado")){
+										let tipo = {forno:4};
+										$.post('/diario/obterDescricao',tipo, function(d){
+											console.log(d);
+											$(".descricaoSituacao:eq(3)").text(d.descricaoF[0]._status);
+										});
 										$(".furnace-functions").hide();
 										$("#furnace-4-functions").show();
 										$("#forno4").removeClass("mdl-cell--1-offset-desktop");
@@ -965,6 +1048,136 @@
 								$("#furnace-1-documentation").hide();
 								$("#usuario_f1").hide();
 								$("#chartContainer1").show();
+							});
+							$(".editarSituacao").on("click", function(){
+								if($(this).is(".editarSituacao:eq(0)")){
+									let conteudo = $(".descricaoSituacao:eq(0)").text();
+									let editarStatus = document.createElement("textarea");
+									$(editarStatus).attr("type", "text");
+									$(editarStatus).val(conteudo);
+									$("#situacaoF1").append(editarStatus);
+									$(".descricaoSituacao:eq(0)").hide();
+									$(editarStatus).show();
+									let concluir = document.createElement("button");
+									concluir.classList.add("mdl-button");
+									concluir.classList.add("mdl-js-button");
+									concluir.classList.add("mdl-button--fab");
+									concluir.classList.add("mdl-button--mini-fab");
+									let iconeConcluir = document.createElement("i");
+									iconeConcluir.classList.add("material-icons");
+									$(iconeConcluir).text("done");
+									$(concluir).append(iconeConcluir);
+									$(".editarSituacao:eq(0)").hide();
+									$("#situacaoF1").append(concluir);
+									$(concluir).on("click", function () {
+										let objeto = { forno: 1, descricao: $(editarStatus).val() };
+										$.post("/diario/mudarDescricao", objeto, function () {
+											$(".descricaoSituacao:eq(0)").text(objeto.descricao);
+											$(".descricaoSituacao:eq(0)").show();
+											$(concluir).hide();
+											$(concluir).remove();
+											$(editarStatus).hide();
+											$(editarStatus).remove();
+											$(".editarSituacao:eq(0)").show();
+										});
+									});
+								}
+								else if($(this).is(".editarSituacao:eq(1)")){
+									let conteudo = $(".descricaoSituacao:eq(1)").text();
+									let editarStatus = document.createElement("textarea");
+									$(editarStatus).attr("type", "text");
+									$(editarStatus).val(conteudo);
+									$("#situacaoF2").append(editarStatus);
+									$(".descricaoSituacao:eq(1)").hide();
+									$(editarStatus).show();
+									let concluir = document.createElement("button");
+									concluir.classList.add("mdl-button");
+									concluir.classList.add("mdl-js-button");
+									concluir.classList.add("mdl-button--fab");
+									concluir.classList.add("mdl-button--mini-fab");
+									let iconeConcluir = document.createElement("i");
+									iconeConcluir.classList.add("material-icons");
+									$(iconeConcluir).text("done");
+									$(concluir).append(iconeConcluir);
+									$(".editarSituacao:eq(1)").hide();
+									$("#situacaoF2").append(concluir);
+									$(concluir).on("click", function () {
+										let objeto = { forno: 2, descricao: $(editarStatus).val() };
+										$.post("/diario/mudarDescricao", objeto, function () {
+											$(".descricaoSituacao:eq(1)").text(objeto.descricao);
+											$(".descricaoSituacao:eq(1)").show();
+											$(concluir).hide();
+											$(concluir).remove();
+											$(editarStatus).hide();
+											$(editarStatus).remove();
+											$(".editarSituacao:eq(1)").show();
+										});
+									});
+								}
+								else if($(this).is(".editarSituacao:eq(2)")){
+									let conteudo = $(".descricaoSituacao:eq(2)").text();
+									let editarStatus = document.createElement("textarea");
+									$(editarStatus).attr("type", "text");
+									$(editarStatus).val(conteudo);
+									$("#situacaoF3").append(editarStatus);
+									$(".descricaoSituacao:eq(2)").hide();
+									$(editarStatus).show();
+									let concluir = document.createElement("button");
+									concluir.classList.add("mdl-button");
+									concluir.classList.add("mdl-js-button");
+									concluir.classList.add("mdl-button--fab");
+									concluir.classList.add("mdl-button--mini-fab");
+									let iconeConcluir = document.createElement("i");
+									iconeConcluir.classList.add("material-icons");
+									$(iconeConcluir).text("done");
+									$(concluir).append(iconeConcluir);
+									$(".editarSituacao:eq(2)").hide();
+									$("#situacaoF3").append(concluir);
+									$(concluir).on("click", function () {
+										let objeto = { forno: 3, descricao: $(editarStatus).val() };
+										$.post("/diario/mudarDescricao", objeto, function () {
+											$(".descricaoSituacao:eq(2)").text(objeto.descricao);
+											$(".descricaoSituacao:eq(2)").show();
+											$(concluir).hide();
+											$(concluir).remove();
+											$(editarStatus).hide();
+											$(editarStatus).remove();
+											$(".editarSituacao:eq(2)").show();
+										});
+									});
+								}
+								else if($(this).is(".editarSituacao:eq(3)")){
+									let conteudo = $(".descricaoSituacao:eq(3)").text();
+									let editarStatus = document.createElement("textarea");
+									$(editarStatus).attr("type", "text");
+									$(editarStatus).val(conteudo);
+									$("#situacaoF4").append(editarStatus);
+									$(".descricaoSituacao:eq(3)").hide();
+									$(editarStatus).show();
+									let concluir = document.createElement("button");
+									concluir.classList.add("mdl-button");
+									concluir.classList.add("mdl-js-button");
+									concluir.classList.add("mdl-button--fab");
+									concluir.classList.add("mdl-button--mini-fab");
+									let iconeConcluir = document.createElement("i");
+									iconeConcluir.classList.add("material-icons");
+									$(iconeConcluir).text("done");
+									$(concluir).append(iconeConcluir);
+									$(".editarSituacao:eq(3)").hide();
+									$("#situacaoF4").append(concluir);
+									$(concluir).on("click", function () {
+										let objeto = { forno: 4, descricao: $(editarStatus).val() };
+										$.post("/diario/mudarDescricao", objeto, function () {
+											$(".descricaoSituacao:eq(3)").text(objeto.descricao);
+											$(".descricaoSituacao:eq(3)").show();
+											$(concluir).hide();
+											$(concluir).remove();
+											$(editarStatus).hide();
+											$(editarStatus).remove();
+											$(".editarSituacao:eq(3)").show();
+										});
+									});
+								}
 							});
 						});
 					</script>
