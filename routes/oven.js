@@ -196,6 +196,7 @@ router.get('/', function(req, res, next) {
 router.post("/init", function(req, res){
 	req.db.get("reading_log").find({}, {limit: 1, sort: {_id: -1}}, function(err, log) {
 		if(err){
+            console.log(err);
 			throw err;
 		}
 
