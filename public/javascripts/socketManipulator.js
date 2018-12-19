@@ -42,7 +42,7 @@ exports.init = function(server, request, callback) {
 			data.user_name = user_name;
 
 			request.post({url:'http://0.0.0.0:3000/oven/getLastId', form:{}}, (err, res, body) => {
-				request.post('http://10.2.192.110/changeId?_id=' + (parseInt(body)+1));
+				request.post('http://10.2.192.100/changeId?_id=' + (parseInt(body)+1));
 			
 				server.sockets.in('general').emit('furnace_1_begin', data);
 
@@ -73,7 +73,7 @@ exports.init = function(server, request, callback) {
 			request.post({url:'http://0.0.0.0:3000/oven/getLastId', form:{}}, (err, res, body) => {
 				server.sockets.in('general').emit('furnace_1_end', payload);
 			
-				request.post('http://10.2.192.110/changeId?_id=' + (parseInt(body)+1));
+				request.post('http://10.2.192.100/changeId?_id=' + (parseInt(body)+1));
 
 				request.post('http://0.0.0.0:3000/oven/action_use').form({
 					"type": "furnace_use",
@@ -95,7 +95,7 @@ exports.init = function(server, request, callback) {
 		client.on('energy', function(payload) {
 			if(payload == 'on') {
 				request.post(
-				    'http://10.2.192.110/energyOn',
+				    'http://10.2.192.100/energyOn',
 				    { payload: { energy: 'on' } },
 				    function (error, response, body) {
 				        if (response.statusCode == 200 || response.statusCode == 302) {
@@ -122,7 +122,7 @@ exports.init = function(server, request, callback) {
 			}
 			else if (payload == 'off') {
 			  	request.post(
-				    'http://10.2.192.110/energyOff',
+				    'http://10.2.192.100/energyOff',
 				    { payload: { energy: 'off' } },
 				    function (error, response, body) {
 				        if (response.statusCode == 200 || response.statusCode == 302) {
@@ -151,7 +151,7 @@ exports.init = function(server, request, callback) {
 		client.on('motor', function(payload) {
 			if(payload == 'on') {
 				request.post(
-				    'http://10.2.192.110/motorOn',
+				    'http://10.2.192.100/motorOn',
 				    { payload: { motor: 'on' } },
 				    function (error, response, body) {
 				    	if(error){
@@ -181,7 +181,7 @@ exports.init = function(server, request, callback) {
 			}
 			else if (payload == 'off') {
 			  	request.post(
-				    'http://10.2.192.110/motorOff',
+				    'http://10.2.192.100/motorOff',
 				    { payload: { motor: 'off' } },
 				    function (error, response, body) {
 				        if (response.statusCode == 200 || response.statusCode == 302) {
