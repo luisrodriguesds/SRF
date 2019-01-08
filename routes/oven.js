@@ -221,13 +221,16 @@ router.post("/log", function(req, res){
 
 router.post("/download", function(req, res){
     var reading_log = req.db.get("reading_log");
-
-    reading_log.find({}, {sort: {_id: -1}}, function(err, log){
-        fs.writeFile("./arquivo/analise.json", JSON.stringify(log[req.body.analise]), function(err){
+    // console.log("baixando");
+    // console.log(req.body.analise);
+    reading_log.find({_id: parseInt(req.body.analise)}, {}, function(err,log){
+        if (err){
+            throw err;
+        }
+        fs.writeFile("./arquivo/analise.json", JSON.stringify(log[0]), function(err){
             if(err){
                 throw err;
             }
-
             res.download("./arquivo/analise.json", function(err){
                 if(err){
                     throw err;
@@ -235,6 +238,23 @@ router.post("/download", function(req, res){
             });
         });
     });
+
+    // reading_log.find({}, {sort: {_id: -1}}, function(err, log){
+    //     // console.log(log);
+    //     fs.writeFile("./arquivo/analise.json", JSON.stringify(log[req.body.analise]), function(err){
+    //         console.log(log.length);
+    //         // console.log(log[req.body.analise]);
+    //         if(err){
+    //             throw err;
+    //         }
+
+    //         res.download("./arquivo/analise.json", function(err){
+    //             if(err){
+    //                 throw err;
+    //             }
+    //         });
+    //     });
+    // });
 });
 
 router.post("/getLastId", function(req, res){
