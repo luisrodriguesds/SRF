@@ -325,7 +325,7 @@
 										lock(_user_name, session_user_name);
 										$("#furnace-1-action-button").text("Parar de Gravar Leituras");
 										$(".oven_available:eq(0)").text("Forno Ocupado");
-										$(".oven_ball:eq(0)").css("background-color", "#30000");
+										$(".oven_ball:eq(0)").css("background-color", "#300000");
 										$("#quem-usa").text(_user_name);
 									}
 
@@ -335,13 +335,13 @@
 										if(!locked || _user_is_admin) {
 											if(using_oven == false) {
 												socket.emit('using_furnace_1', {_id: id, user_name: session_user_name});
-												socket.emit('energy', 'on');
-												socket.emit('motor', 'on');
+												// socket.emit('energy', 'on');
+												// socket.emit('motor', 'on');
 											}
 											else {
 												socket.emit('free_furnace_1', {_id: id + 1});
-												socket.emit('energy', 'off');
-												socket.emit('motor', 'off');
+												// socket.emit('energy', 'off');
+												// socket.emit('motor', 'off');
 											}
 
 											using_oven = !using_oven;

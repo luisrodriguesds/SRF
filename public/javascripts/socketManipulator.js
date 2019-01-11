@@ -51,9 +51,12 @@ exports.init = function(server, request, callback) {
 					"number": 1,
 					"using": true,
 					"user_name": data.user_name
+				}, function (err, res, body){
+					res.end();
 				});
+				// request.end();
+				
 			});
-
 			//request.post('http://10.2.192.110/useOn?_id=' + data._id + '&_user_name=' + data.user_name);
 
 			// remover
@@ -79,7 +82,10 @@ exports.init = function(server, request, callback) {
 					"type": "furnace_use",
 					"number": 1,
 					"using": false
+				}, function (err, res, body){
+					res.end();
 				});
+				// request.end();
 			});
 
 			// request.post('http://10.2.192.110/useOff');
